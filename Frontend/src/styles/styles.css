@@ -1,0 +1,64 @@
+/*COLOR PALETTE VARS:*/
+$clr-black :#2B2E4A;
+$clr-red :#E84545;
+$clr-dark-red :#903749;
+$clr-brown :#53354A;
+$clr-grey :#AEAEAE;
+
+body {
+height: 125vh;
+margin-top: 80px;
+padding: 0;
+margin: 0;
+background-size: cover;
+font-family: sans-serif;
+
+display: flex;
+flex-direction: column;
+min-height: 100vh;
+}
+
+* .main-section{
+  position:relative;
+  margin-top: 20vh;
+  margin-bottom: 70px;
+  padding-top: 75px;
+}
+
+.main-section{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: grey;
+  width: 1000px;
+  margin: auto;
+}
+
+.cardcontainer{
+  width: 100%;
+  display: block;
+  height: 500px;
+  /*overflow-y: auto;*/
+  overflow-x: scroll;
+  /*transform: rotate(-90deg);
+  transform-origin: right top;
+  transform:rotate(-90deg) translateY(-900px);*/
+}
+
+
+.cardcontainer #product{
+  height: 470px;
+}
+
+.slice{
+  padding: 250px 0 0 0;
+  /*margin-left: 200px;*/
+  margin : 100px auto;
+  display: block;
+  white-space: nowrap;
+}
+
+#content{
+  display: none;
+}

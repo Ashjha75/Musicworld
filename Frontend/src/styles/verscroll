@@ -1,0 +1,12 @@
+.vertical-slider{
+  display: block;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 800px;
+}
+
+.vertical-slider .slider-container{
+  display: flex;
+  flex-direction: column;
+}

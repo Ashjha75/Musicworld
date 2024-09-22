@@ -1,0 +1,10 @@
+.horizontal-slider{
+  display: block;
+  width: 100%;
+  overflow-x:scroll;
+}
+
+.horizontal-slider .slider-container{
+  display: block;
+  white-space:nowrap;
+}

@@ -1,0 +1,50 @@
+<div class="main-section">
+  <div class="horizontal">
+    <div class="title">Best Products</div>
+    <div class="horizontal-slider">
+      <div class="slider-container">
+        <div class="card" id="product" *ngFor = "let item of products">
+          <img src={{item.imgUrl}} class="card__image" alt="" />
+          <h1>{{item.name}}</h1>
+          <p>{{item.price}} €</p>
+          <p>Order : </p>
+          <select id="quantity-selector">
+            <option value="1" selected="selected">1</option>
+            <option *ngFor="let i of quantityArray(item.leftQuantity)" value="i">{{i}}</option>
+          </select>
+          <p>Producer : {{item.producer}}</p>
+          <p>Category : {{item.categoryName}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="title">Best Producers</div>
+    <div class="horizontal-slider">
+      <div class="slider-container">
+        <div class="card" id="producer" *ngFor = "let item of producers">
+          <button (click)="visitstore(item.mail)">
+            <a>Visit {{item.name}} Store</a>
+          </button>
+          <p>Contact : {{item.mail}}</p>
+          <p>Address : {{item.address}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div *ngIf="logged" class="vertical">
+    <div class="title">Your Cart</div>
+    <div class="vertical-slider">
+      <div class="slider-container">
+        <div class="card" id="product" *ngFor = "let item of productsCart">
+          <img src={{item.imgUrl}} class="card__image" alt="" />
+          <p>{{item.name}}</p>
+          <p>{{item.price}} €</p>
+          <p>Ordered : {{item.leftQuantity}}</p>
+          <p>Producer : {{item.producer}}</p>
+          <p>Category : {{item.category}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

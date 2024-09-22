@@ -1,0 +1,64 @@
+.card{
+  display: inline-block;
+  margin-right: 10px;
+  margin: 10px 10px;
+  border-radius: 15px;
+  background: black;
+  padding : 10px;
+  width:250px;
+  box-shadow: 0 0 7px black;
+}
+
+.card *{
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover{
+  box-shadow: 0 0 11px black;
+  background: #262942;
+  color: white;
+}
+
+.card #category{
+  height: 400px;
+  margin-top: 20px;
+}
+
+.card #product{
+  height: 450px;
+}
+
+.card img{
+    border-radius: 10px;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.card button{
+  margin-top: 10px;
+  width:100%;
+}
+
+.card p{
+  font-family: "Noto Sans";
+  color: grey;
+  overflow: hidden;
+  width: 100%;
+}
+
+.card:hover p{
+  color: white;
+}
+
+.card h1{
+  font-size: 100;
+  font-family: "Noto Sans";
+}
+
+#quantity-selector {
+  background-color: lightgrey;
+  border-radius: 10px;
+  font-size: 25px;
+  box-shadow: 0 0 7px black;
+}

@@ -1,0 +1,29 @@
+.main-section{
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: grey;
+  width: 1000px;
+  margin: auto;
+}
+
+.horizontal{
+  width:100%
+}
+
+#quantity-selector{
+  width: 50%;
+  text-align-last: right;
+}
+
+#order-button{
+  width: 80%;
+  margin: auto;
+}
+
+.button-container{
+  margin: auto;
+  width: 60%;
+  padding: 15px;
+}

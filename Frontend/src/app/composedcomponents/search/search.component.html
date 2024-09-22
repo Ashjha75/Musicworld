@@ -1,0 +1,39 @@
+<div class="main-section">
+
+  <div class="search-container">
+    <input type="search" name="Search" placeholder="Type Here" required>
+    <button routerLink = "/login">
+      <a>Search</a>
+    </button>
+  </div>
+
+  <div class="title">Found Products</div>
+  <div class="horizontal-slider">
+    <div class="slider-container">
+      <div class="card" id="product" *ngFor = "let item of products">
+        <img src={{item.imgUrl}} class="card__image" alt="" />
+        <button>
+          <a href="#">Add to cart</a>
+        </button>
+        <p>{{item.name}}</p>
+        <p>{{item.price}} €</p>
+        <p>Stock : {{item.leftQuantity}}</p>
+        <p>Producer : {{item.producer}}</p>
+        <p>Category : {{item.category}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="title">Found Categories</div>
+  <div class="horizontal-slider">
+    <div class="slider-container">
+      <div class="card" id="category" *ngFor = "let item of categories">
+        <img src={{item.imgUrl}} class="card__image" alt="" />
+          <button>
+            <a href="#">{{item.name}}</a>
+          </button>
+      </div>
+    </div>
+  </div>
+
+</div>

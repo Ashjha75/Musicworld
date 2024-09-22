@@ -1,0 +1,20 @@
+.block{
+  color : #2B2E4A;
+  --color: black;
+}
+.block{
+  color : #E84545;
+  --color: red;
+}
+.block{
+  color : #903749;
+  --color: darkred;
+}
+.block{
+  color : #53354A;
+  --color: brown;
+}
+.block{
+  color : #AEAEAE;
+  --color: grey;
+}

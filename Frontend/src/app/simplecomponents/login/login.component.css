@@ -1,0 +1,11 @@
+input{
+  padding: 5px;
+  border-radius: 15px;
+  margin: 10px;
+  font-family: 'Open Sans', sans-serif;
+  align-content: center;
+}
+
+#register{
+  font-size: 12px;
+}

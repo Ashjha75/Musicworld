@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MusicStore</title>
+</head>
+<header>
+  <div class="navigationbar">
+    <li><a href=""> MusicStore </a></li>
+    <ul class="list">
+      <div id="right">
+        <div>
+          <a routerLink = "/categories">Categories</a>
+        </div>
+        <div>
+          <a routerLink = "/products">Products</a>
+        </div>
+        <div>
+          <a routerLink = "/cart">Cart</a>
+        </div>
+        <div>
+          <a routerLink = "/order">Order</a>
+        </div>
+        <div>
+          <a routerLink = "/shipment">Shipment</a>
+        </div>
+        <div>
+          <a routerLink = "/search">Search</a>
+        </div>
+        <div id="login">
+          <a *ngIf="this.logStatus.loggedIn" routerLink = "/login">Logout</a>
+          <a *ngIf="!this.logStatus.loggedIn" routerLink = "/login">Login</a>
+        </div>
+      </div>
+    </ul>
+  </div>
+</header>
+  <router-outlet></router-outlet>
+  <footer>
+    <div class="container">
+      <div class="col ft-column-1">
+        <p>General</p>
+        <a href="#">Terms & Conditions</a>
+        <a href="#">Privacy</a>
+      </div>
+      <div class="col ft-column-2">
+        <p>Company</p>
+        <a href="#">About Us</a>
+        <a href="#">Contacts</a>
+      </div>
+      <div class="col ft-column-3">
+        <p>Share</p>
+        <a href="#">Facebook</a>
+        <a href="#">Twitter</a>
+        <a href="#">Instagram</a>
+        <a href="#">Linkedin</a>
+      </div>
+      <div class="col ft-column-4">
+        <p>Repo</p>
+        <a target="_blank" href="https://github.com/iambrunoromano">GitHub</a>
+      </div>
+
+
+    </div>
+  </footer>
+</html>

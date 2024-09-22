@@ -1,0 +1,22 @@
+<div class="main-section">
+  <div class="title">Login</div>
+  <div class="card" id="login">
+    <form>
+        <input  id="username"
+                type="email"
+                name="Email"
+                placeholder="Your email address"
+                required>
+        <input  id="password"
+                type="password"
+                name="Password"
+                placeholder="Password"
+                required>
+    </form>
+    <button (click)="login()">
+      <a>Login</a>
+    </button>
+    <br>
+    <a id="register" routerLink = "/register">Register</a>
+  </div>
+</div>

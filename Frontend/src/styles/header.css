@@ -1,0 +1,46 @@
+header {
+  background-color: black;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 0 10px 0 black;
+  z-index: 1;
+}
+
+header nav {
+  margin: auto;
+  min-width: 455px;
+}
+
+header * {
+  display: inline;
+}
+
+header li {
+  margin: 20px;
+}
+
+header li a {
+  color: grey;
+}
+
+.navigationbar {
+  width: 100%;
+}
+
+.navigationbar #right {
+  float: right;
+  margin-right: 30px;
+}
+
+.navigationbar ul *{
+  margin-left: 20px;
+}
+
+.navigationbar.list{
+  margin-top: auto;
+}

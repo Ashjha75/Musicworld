@@ -1,0 +1,49 @@
+<div class="main-section">
+  <div class="title">Register</div>
+  <div class="card" id="login">
+    <form>
+        <input  id="username"
+                type="email"
+                name="Email"
+                placeholder="Your email address"
+                required>
+        <input  id="password"
+                type="password"
+                name="Password"
+                placeholder="Password"
+                required>
+        <input  id="name"
+                type="name"
+                name="Name"
+                placeholder="Your name"
+                required>
+        <input  id="surname"
+                type="surname"
+                name="Surname"
+                placeholder="Your surname"
+                required>
+        <input  id="cardnumb"
+                type="cardnumb"
+                name="cardnumb"
+                placeholder="Your Card Number"
+                required>
+        <input  id="address"
+                type="address"
+                name="Address"
+                placeholder="Your address"
+                required>
+        <input  id="imgurl"
+                type="imgurl"
+                name="Img link"
+                placeholder="Link to Profile Img"
+                required>
+        <select id="customer-producer-selector">
+          <option value="customer" selected="selected">Register me as Customer</option>
+          <option value="producer">Register me as Producer</option>
+        </select>
+    </form>
+    <button (click)="register()">
+      <a>Register</a>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+* a{
+  font-family: 'Open Sans', sans-serif;
+  font-size: 120%;
+  color : #BDBDBD;
+  text-decoration: none;
+}
+
+a.brand{
+  font-family: 'Monaco', sans-serif;
+  font-size: 170%;
+}
+
+a:hover{
+  color: white;
+  transition: 0.3s ease-out;
+  text-shadow: 2px 2px 5px black;
+}
+
+.title{
+  font-family: 'Open Sans', sans-serif;
+  font-size: 200%;
+  color : black;
+  font-weight: bold;
+  text-decoration: none;
+}

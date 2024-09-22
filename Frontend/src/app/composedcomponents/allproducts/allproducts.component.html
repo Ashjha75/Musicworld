@@ -1,0 +1,18 @@
+<div class="main-section">
+  <div class="title">Products</div>
+  <div class="horizontal-slider">
+    <div class="slider-container">
+      <div class="card" id="product" *ngFor = "let item of products">
+        <img src={{item.imgUrl}} class="card__image" alt="" />
+        <button>
+          <a href="#">Add to cart</a>
+        </button>
+        <h1>{{item.name}}</h1>
+        <p>{{item.price}} €</p>
+        <p>Stock : {{item.leftQuantity}}</p>
+        <p>Producer : {{item.producer}}</p>
+        <p>Category : {{item.category}}</p>
+      </div>
+    </div>
+  </div>
+</div>

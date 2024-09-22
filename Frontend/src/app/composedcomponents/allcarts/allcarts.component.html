@@ -1,0 +1,18 @@
+<div class="main-section">
+    <div class="title">Your Cart</div>
+    <div class="horizontal-slider">
+      <div class="slider-container">
+        <div class="card" id="product" *ngFor = "let item of cartproducts">
+          <img src={{item.product.imgUrl}} class="card__image" alt="" />
+          <h1>{{item.product.name}}</h1>
+          <p>Price: {{item.product.price}} €</p>
+          <p>Quantity: {{item.cart.quantity}}</p>
+          <p>Overall Price: {{item.cart.overallPrice}} €</p>
+          <p>Order Id: {{item.cart.orderId}}</p>
+          <p>Producer : {{item.product.producer}}</p>
+          <p>Category : {{item.product.categoryName}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
