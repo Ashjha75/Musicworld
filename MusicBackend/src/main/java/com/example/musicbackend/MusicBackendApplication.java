@@ -8,6 +8,7 @@ public class MusicBackendApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(MusicBackendApplication.class, args);
+        System.out.println("I am Working Fine Bro 😎😎😎👌");
     }
 
 }
