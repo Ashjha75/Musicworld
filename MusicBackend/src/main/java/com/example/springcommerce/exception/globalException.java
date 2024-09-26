@@ -1,4 +1,4 @@
-package com.example.musicbackend.exception;
+package com.example.springcommerce.exception;
 
 
 import org.springframework.http.HttpStatus;
@@ -29,6 +29,12 @@ public class globalException {
     public ResponseEntity<String> myResourceNotFoundException(ResourceNotFound e) {
         String message = e.getMessage();
         return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ApiException.class)
+    public ResponseEntity<String> myApiException(ApiException e) {
+        String message = e.getMessage();
+        return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
     }
 }
 

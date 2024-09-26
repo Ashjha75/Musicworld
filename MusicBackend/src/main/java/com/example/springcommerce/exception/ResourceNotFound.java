@@ -1,4 +1,4 @@
-package com.example.musicbackend.exception;
+package com.example.springcommerce.exception;
 
 public class ResourceNotFound extends RuntimeException {
     String resourceName;

@@ -1,4 +1,4 @@
-package com.example.musicbackend.entity;
+package com.example.springcommerce.entity;
 
 
 import jakarta.persistence.*;
