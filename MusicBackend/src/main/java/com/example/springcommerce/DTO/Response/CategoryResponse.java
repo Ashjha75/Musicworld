@@ -12,5 +12,5 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CategoryResponse {
-    List<categoryRequest> response;
+    List<categoryRequest> categories;
 }

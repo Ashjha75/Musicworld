@@ -1,12 +1,15 @@
 package com.example.springcommerce.serviceImplementation;
 
 
+import com.example.springcommerce.DTO.Request.categoryRequest;
 import com.example.springcommerce.DTO.Response.CategoryResponse;
 import com.example.springcommerce.entity.categoryEntity;
 import com.example.springcommerce.exception.ApiException;
 import com.example.springcommerce.exception.ResourceNotFound;
 import com.example.springcommerce.repository.categoryRepo;
 import com.example.springcommerce.service.categoryService;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,24 +17,39 @@ import java.util.List;
 @Service
 public class categoryImpl implements categoryService {
     private final categoryRepo categoryRepos;
+    private final ModelMapper modelMapper;
 
-    public categoryImpl(categoryRepo categoryRepo) {
+    @Autowired
+    public categoryImpl(categoryRepo categoryRepo, ModelMapper modelMapper) {
         this.categoryRepos = categoryRepo;
+        this.modelMapper = modelMapper;
     }
 
 
     @Override
     public CategoryResponse getAllCategories() {
-        return categoryRepos.findAll();
+        List<categoryEntity> categories = categoryRepos.findAll();
+        if (categories.isEmpty())
+            throw new ApiException("No categories found");
+
+        List<categoryRequest> categoryRequests = categories.stream()
+                .map(category -> modelMapper.map(category, categoryRequest.class))
+                .toList();
+
+        CategoryResponse categoryResponse = new CategoryResponse();
+        categoryResponse.setCategories(categoryRequests);
+
+        return categoryResponse;
     }
 
     @Override
-    public String addCategory(categoryEntity category) {
+    public categoryRequest addCategory(categoryRequest category) {
+        categoryEntity categoryEntity = modelMapper.map(category, categoryEntity.class);
         categoryEntity existingCategory = categoryRepos.findByCategoryName(category.getCategoryName());
         if (existingCategory != null)
             throw new ApiException("Category with name " + category.getCategoryName() + " already exists");
-        categoryRepos.save(category);
-        return "Category added successfully";
+        categoryEntity savedCategory = categoryRepos.save(categoryEntity);
+        return modelMapper.map(savedCategory, categoryRequest.class);
     }
 
     @Override
