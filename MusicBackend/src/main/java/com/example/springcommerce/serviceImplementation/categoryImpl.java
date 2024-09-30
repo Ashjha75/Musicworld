@@ -10,6 +10,10 @@ import com.example.springcommerce.repository.categoryRepo;
 import com.example.springcommerce.service.categoryService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,14 +25,22 @@ public class categoryImpl implements categoryService {
 
     @Autowired
     public categoryImpl(categoryRepo categoryRepo, ModelMapper modelMapper) {
-        this.categoryRepos = categoryRepo;
+        this.categoryRepos = gi
         this.modelMapper = modelMapper;
     }
 
 
     @Override
-    public CategoryResponse getAllCategories() {
-        List<categoryEntity> categories = categoryRepos.findAll();
+    public CategoryResponse getAllCategories(Integer page, Integer size, String sort, String sortBy) {
+
+        Sort sortByAndOrder = sort.equalsIgnoreCase("asc") ?
+                Sort.by(sortBy).ascending() :
+                Sort.by(sortBy).descending();
+
+//        pagination
+        Pageable pageDetails = PageRequest.of(page, size);
+        Page<categoryEntity> categories = categoryRepos.findAll(pageDetails);
+
         if (categories.isEmpty())
             throw new ApiException("No categories found");
 
@@ -38,7 +50,11 @@ public class categoryImpl implements categoryService {
 
         CategoryResponse categoryResponse = new CategoryResponse();
         categoryResponse.setCategories(categoryRequests);
-
+        categoryResponse.setPageNumber(categories.getNumber());
+        categoryResponse.setPageSize(categories.getSize());
+        categoryResponse.setTotalPages(categories.getTotalPages());
+        categoryResponse.setTotalElements(categories.getTotalElements());
+        categoryResponse.setLast(categories.isLast());
         return categoryResponse;
     }
 
@@ -53,28 +69,32 @@ public class categoryImpl implements categoryService {
     }
 
     @Override
-    public categoryEntity updateCategory(categoryEntity category, Long categoryId) {
+    public categoryRequest updateCategory(categoryRequest category, Long categoryId) {
         // Find the category by id
         categoryEntity existingCategory = categoryRepos.findById(categoryId)
                 .orElseThrow(() -> new ResourceNotFound(categoryId, "Category", "categoryId"));
-        if (existingCategory.getCategoryName().equals(category.getCategoryName()))
+
+        // Check if the new category name already exists
+        categoryEntity categoryWithName = categoryRepos.findByCategoryName(category.getCategoryName());
+        if (categoryWithName != null && !categoryWithName.getCategoryId().equals(categoryId)) {
             throw new ApiException("Category with name " + category.getCategoryName() + " already exists");
+        }
 
         // Update the fields of the existing category
         existingCategory.setCategoryName(category.getCategoryName());
 
         // Save the updated category
-        existingCategory = categoryRepos.save(existingCategory);
-        return existingCategory;
+        categoryEntity savedCategory = categoryRepos.save(existingCategory);
+        return modelMapper.map(savedCategory, categoryRequest.class);
     }
 
     @Override
-    public String deleteCategory(Long categoryId) {
+    public categoryRequest deleteCategory(Long categoryId) {
 //        find the category by id
         categoryEntity existingCategory = categoryRepos.findById(categoryId)
                 .orElseThrow(() -> new ResourceNotFound(categoryId, "Category", "categoryId"));
 
         categoryRepos.delete(existingCategory);
-        return "Category with id " + categoryId + " deleted successfully";
+        return modelMapper.map(existingCategory, categoryRequest.class);
     }
 }

@@ -13,4 +13,9 @@ import java.util.List;
 @AllArgsConstructor
 public class CategoryResponse {
     List<categoryRequest> categories;
+    private Integer pageNumber;
+    private Integer pageSize;
+    private Integer totalPages;
+    private Long totalElements;
+    private Boolean last;
 }

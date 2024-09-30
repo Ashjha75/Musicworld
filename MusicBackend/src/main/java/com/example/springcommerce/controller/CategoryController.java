@@ -2,6 +2,7 @@ package com.example.springcommerce.controller;
 
 import com.example.springcommerce.DTO.Request.categoryRequest;
 import com.example.springcommerce.DTO.Response.CategoryResponse;
+import com.example.springcommerce.config.AppConstants;
 import com.example.springcommerce.entity.categoryEntity;
 import com.example.springcommerce.service.categoryService;
 import jakarta.validation.Valid;
@@ -24,8 +25,12 @@ public class CategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<CategoryResponse> getAllCategories() {
-        CategoryResponse categories = categoryService.getAllCategories();
+    public ResponseEntity<CategoryResponse> getAllCategories(@RequestParam(name = "page", defaultValue = AppConstants.PAGE_NUMBER, required = false) int page,
+                                                             @RequestParam(name = "size", defaultValue = AppConstants.PAGE_SIZE, required = false) int size,
+                                                             @RequestParam(name = "sortOrder", defaultValue = AppConstants.SORT_DIR, required = false) String sort,
+                                                             @RequestParam(name = "sortBy", defaultValue = AppConstants.SORT_CATEGORIES_BY, required = false) String sortBy
+    ) {
+        CategoryResponse categories = categoryService.getAllCategories(page, size, sortBy, sort);
         return ResponseEntity.ok(categories);
     }
 
@@ -36,14 +41,14 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<categoryEntity> updateCategory(@Valid @RequestBody categoryEntity category, @PathVariable Long id) {
-        categoryEntity updatedCategory = categoryService.updateCategory(category, id);
+    public ResponseEntity<categoryRequest> updateCategory(@Valid @RequestBody categoryRequest category, @PathVariable Long id) {
+        categoryRequest updatedCategory = categoryService.updateCategory(category, id);
         return ResponseEntity.ok(updatedCategory);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteCategory(@PathVariable Long id) {
-        String response = categoryService.deleteCategory(id);
+    public ResponseEntity<categoryRequest> deleteCategory(@PathVariable Long id) {
+        categoryRequest response = categoryService.deleteCategory(id);
         return ResponseEntity.ok(response);
     }
 }

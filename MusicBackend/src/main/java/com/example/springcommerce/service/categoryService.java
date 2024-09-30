@@ -8,11 +8,11 @@ import com.example.springcommerce.entity.categoryEntity;
 import java.util.List;
 
 public interface categoryService {
-    CategoryResponse getAllCategories();
+    CategoryResponse getAllCategories(Integer page, Integer size, String sort, String sortBy);
 
     categoryRequest addCategory(categoryRequest category);
 
-    categoryEntity updateCategory(categoryEntity category, Long categoryId);
+    categoryRequest updateCategory(categoryRequest category, Long categoryId);
 
-    String deleteCategory(Long categoryId);
+    categoryRequest deleteCategory(Long categoryId);
 }
