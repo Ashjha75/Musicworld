@@ -25,7 +25,7 @@ public class categoryImpl implements categoryService {
 
     @Autowired
     public categoryImpl(categoryRepo categoryRepo, ModelMapper modelMapper) {
-        this.categoryRepos = gi
+        this.categoryRepos = categoryRepo;
         this.modelMapper = modelMapper;
     }
 
