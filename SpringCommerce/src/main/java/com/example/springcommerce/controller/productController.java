@@ -37,4 +37,9 @@ public class productController {
         productResponse productResponse= productService.getProductByCategory(categoryId);
         return new ResponseEntity<productResponse>(productResponse,HttpStatus.OK);
     }
+
+    public ResponseEntity<productRequest> getProductByKeyWord(@PathVariable String keyWord){
+        productRequest productRequest = productService.getProductByKeyWord(keyWord);
+        return new ResponseEntity<productRequest>(productRequest,HttpStatus.OK);
+    }
 }
