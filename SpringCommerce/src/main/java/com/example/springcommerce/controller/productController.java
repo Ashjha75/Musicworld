@@ -1,6 +1,7 @@
 package com.example.springcommerce.controller;
 
 import com.example.springcommerce.DTO.Request.productRequest;
+import com.example.springcommerce.DTO.Response.productResponse;
 import com.example.springcommerce.entity.productEntity;
 import com.example.springcommerce.service.productService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +24,17 @@ public class productController {
     public ResponseEntity<productRequest> addProduct(@RequestBody productEntity productEntity, @PathVariable Long categoryId) {
         productRequest products = productService.addProduct(productEntity, categoryId);
         return new ResponseEntity<productRequest>(products, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/public/products")
+    public ResponseEntity<productResponse> getAllProducts(){
+        productResponse productResponse= productService.getAllProducts();
+        return new ResponseEntity<productResponse>(productResponse,HttpStatus.OK);
+    }
+
+    @GetMapping("/public/categories/{categoryId}/products")
+    public ResponseEntity<productResponse> getProductByCategory(@PathVariable Long categoryId){
+        productResponse productResponse= productService.getProductByCategory(categoryId);
+        return new ResponseEntity<productResponse>(productResponse,HttpStatus.OK);
     }
 }
