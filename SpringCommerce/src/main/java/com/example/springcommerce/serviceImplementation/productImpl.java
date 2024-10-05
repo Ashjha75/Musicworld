@@ -62,8 +62,31 @@ public class productImpl implements productService {
     }
 
     @Override
-    public productRequest getProductByKeyWord(String keyWord) {
-        return null;
+    public productResponse getProductByKeyWord(String keyWord) {
+        List<productEntity> products = productRepository.findByProductNameLikeIgnoreCase("%" + keyWord + "%");
+        List<productRequest> productRequests = products.stream().map(entity -> modelMapper.map(entity, productRequest.class)).toList();
+        productResponse productResponse = new productResponse();
+        productResponse.setProducts(productRequests);
+        return productResponse;
+    }
+
+    @Override
+    public productRequest updateProduct(productEntity productEntity, Long productId) {
+//        get the existing product
+        productEntity existingProduct = productRepository.findById(productId).orElseThrow(() -> new ResourceNotFound(productId, "Product", "productId"));
+//        update the product
+        existingProduct.setProductName(productEntity.getProductName());
+        existingProduct.setDescription(productEntity.getDescription());
+        existingProduct.setPrice(productEntity.getPrice());
+        existingProduct.setDiscount(productEntity.getDiscount());
+        existingProduct.setQuantity(productEntity.getQuantity());
+        double specialPrice = (productEntity.getDiscount() * 0.01) * productEntity.getPrice();
+        existingProduct.setSpecialPrice(specialPrice);
+//        save the product
+        productEntity savedProduct = productRepository.save(existingProduct);
+
+//        return the updated product
+        return modelMapper.map(savedProduct, productRequest.class);
     }
 
 }

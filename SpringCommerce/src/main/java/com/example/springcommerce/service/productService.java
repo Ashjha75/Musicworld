@@ -12,5 +12,7 @@ public interface productService {
 
     productResponse getProductByCategory(Long categoryId);
 
-    productRequest getProductByKeyWord(String keyWord);
+    productResponse getProductByKeyWord(String keyWord);
+
+    productRequest updateProduct(productEntity productEntity, Long productId);
 }

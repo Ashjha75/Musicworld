@@ -27,19 +27,26 @@ public class productController {
     }
 
     @GetMapping("/public/products")
-    public ResponseEntity<productResponse> getAllProducts(){
-        productResponse productResponse= productService.getAllProducts();
-        return new ResponseEntity<productResponse>(productResponse,HttpStatus.OK);
+    public ResponseEntity<productResponse> getAllProducts() {
+        productResponse productResponse = productService.getAllProducts();
+        return new ResponseEntity<productResponse>(productResponse, HttpStatus.OK);
     }
 
     @GetMapping("/public/categories/{categoryId}/products")
-    public ResponseEntity<productResponse> getProductByCategory(@PathVariable Long categoryId){
-        productResponse productResponse= productService.getProductByCategory(categoryId);
-        return new ResponseEntity<productResponse>(productResponse,HttpStatus.OK);
+    public ResponseEntity<productResponse> getProductByCategory(@PathVariable Long categoryId) {
+        productResponse productResponse = productService.getProductByCategory(categoryId);
+        return new ResponseEntity<productResponse>(productResponse, HttpStatus.OK);
     }
 
-    public ResponseEntity<productRequest> getProductByKeyWord(@PathVariable String keyWord){
-        productRequest productRequest = productService.getProductByKeyWord(keyWord);
-        return new ResponseEntity<productRequest>(productRequest,HttpStatus.OK);
+    @GetMapping("/public/products/keyWord/{keyWord}")
+    public ResponseEntity<productResponse> getProductByKeyWord(@PathVariable String keyWord) {
+        productResponse productResponse = productService.getProductByKeyWord(keyWord);
+        return new ResponseEntity<productResponse>(productResponse, HttpStatus.FOUND);
+    }
+
+    @PutMapping("/admin/products/productId/{productId}")
+    public ResponseEntity<productRequest> updateProduct(@RequestBody  productEntity productEntity, @PathVariable Long productId){
+        productRequest productRequest = productService.updateProduct(productEntity, productId);
+        return new ResponseEntity<productRequest>(productRequest, HttpStatus.OK);
     }
 }
