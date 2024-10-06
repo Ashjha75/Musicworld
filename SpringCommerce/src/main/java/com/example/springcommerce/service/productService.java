@@ -15,4 +15,6 @@ public interface productService {
     productResponse getProductByKeyWord(String keyWord);
 
     productRequest updateProduct(productEntity productEntity, Long productId);
+
+    productRequest deleteProduct(Long productId);
 }
