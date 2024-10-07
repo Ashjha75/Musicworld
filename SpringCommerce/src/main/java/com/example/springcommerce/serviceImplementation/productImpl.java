@@ -29,14 +29,15 @@ public class productImpl implements productService {
     }
 
     @Override
-    public productRequest addProduct(productEntity productEntity, Long categoryId) {
+    public productRequest addProduct(productRequest productRequest, Long categoryId) {
         categoryEntity category = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFound(categoryId, "Category", "categoryId"));
-        productEntity.setImage("defaultImage.jpg");
-        productEntity.setCategory(category);
-        double specialPrice = (productEntity.getDiscount() * 0.01) * productEntity.getPrice();
-        productEntity.setSpecialPrice(specialPrice);
+        productEntity product = modelMapper.map(productRequest,productEntity.class);
+        product.setImage("defaultImage.jpg");
+        product.setCategory(category);
+        double specialPrice = (product.getDiscount() * 0.01) * product.getPrice();
+        product.setSpecialPrice(specialPrice);
 
-        productEntity savedProduct = productRepository.save(productEntity);
+        productEntity savedProduct = productRepository.save(product);
 
         return modelMapper.map(savedProduct, productRequest.class);
     }
@@ -53,7 +54,7 @@ public class productImpl implements productService {
 
     @Override
     public productResponse getProductByCategory(Long categoryId) {
-        categoryEntity category = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFound(categoryId, "Category", "categoryId"));
+        categoryEntity category = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFound(categoryId, "categoryId", "Category"));
         List<productEntity> products = productRepository.findByCategoryOrderByPriceAsc(category);
         List<productRequest> productRequests = products.stream().map(entity -> modelMapper.map(entity, productRequest.class)).toList();
         productResponse productResponse = new productResponse();
@@ -71,16 +72,17 @@ public class productImpl implements productService {
     }
 
     @Override
-    public productRequest updateProduct(productEntity productEntity, Long productId) {
+    public productRequest updateProduct(productRequest productRequest, Long productId) {
 //        get the existing product
-        productEntity existingProduct = productRepository.findById(productId).orElseThrow(() -> new ResourceNotFound(productId, "Product", "productId"));
+        productEntity existingProduct = productRepository.findById(productId).orElseThrow(() -> new ResourceNotFound(productId, "productId", "Product"));
+        productEntity product = modelMapper.map(productRequest,productEntity.class);
 //        update the product
-        existingProduct.setProductName(productEntity.getProductName());
-        existingProduct.setDescription(productEntity.getDescription());
-        existingProduct.setPrice(productEntity.getPrice());
-        existingProduct.setDiscount(productEntity.getDiscount());
-        existingProduct.setQuantity(productEntity.getQuantity());
-        double specialPrice = (productEntity.getDiscount() * 0.01) * productEntity.getPrice();
+        existingProduct.setProductName(product.getProductName());
+        existingProduct.setDescription(product.getDescription());
+        existingProduct.setPrice(product.getPrice());
+        existingProduct.setDiscount(product.getDiscount());
+        existingProduct.setQuantity(product.getQuantity());
+        double specialPrice = (product.getDiscount() * 0.01) * product.getPrice();
         existingProduct.setSpecialPrice(specialPrice);
 //        save the product
         productEntity savedProduct = productRepository.save(existingProduct);
@@ -91,7 +93,11 @@ public class productImpl implements productService {
 
     @Override
     public productRequest deleteProduct(Long productId) {
-        return null;
+        productEntity existingProduct = productRepository.findById(productId).orElseThrow(() -> new ResourceNotFound(productId, "productId", "Product"));
+
+        productRepository.delete(existingProduct);
+
+        return modelMapper.map(existingProduct, productRequest.class);
     }
 
 }

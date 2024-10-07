@@ -2,11 +2,10 @@ package com.example.springcommerce.service;
 
 import com.example.springcommerce.DTO.Request.productRequest;
 import com.example.springcommerce.DTO.Response.productResponse;
-import com.example.springcommerce.entity.productEntity;
 
 public interface productService {
 
-    productRequest addProduct(productEntity productEntity, Long categoryId);
+    productRequest addProduct(productRequest productEntity, Long categoryId);
 
     productResponse getAllProducts();
 
@@ -14,7 +13,7 @@ public interface productService {
 
     productResponse getProductByKeyWord(String keyWord);
 
-    productRequest updateProduct(productEntity productEntity, Long productId);
+    productRequest updateProduct(productRequest productEntity, Long productId);
 
     productRequest deleteProduct(Long productId);
 }
