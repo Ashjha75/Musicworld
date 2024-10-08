@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -53,6 +54,12 @@ public class productController {
     @DeleteMapping("/admin/products/productId/{productId}")
     public ResponseEntity<productRequest> deleteProduct(@PathVariable Long productId) {
         productRequest product = productService.deleteProduct(productId);
+        return new ResponseEntity<productRequest>(product, HttpStatus.OK);
+    }
+
+    @PutMapping("/products/{productId}/image")
+    public ResponseEntity<productRequest> updateProductImage(@PathVariable Long productId, @RequestParam("image")MultipartFile image) {
+        productRequest product = productService.updateProductImage(productId, image);
         return new ResponseEntity<productRequest>(product, HttpStatus.OK);
     }
 

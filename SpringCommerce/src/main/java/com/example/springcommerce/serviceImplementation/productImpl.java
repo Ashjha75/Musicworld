@@ -11,6 +11,7 @@ import com.example.springcommerce.service.productService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -98,6 +99,11 @@ public class productImpl implements productService {
         productRepository.delete(existingProduct);
 
         return modelMapper.map(existingProduct, productRequest.class);
+    }
+
+    @Override
+    public productRequest updateProductImage(Long productId, MultipartFile image) {
+        return null;
     }
 
 }
