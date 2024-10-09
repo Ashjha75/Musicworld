@@ -32,7 +32,7 @@ public class productImpl implements productService {
     @Override
     public productRequest addProduct(productRequest productRequest, Long categoryId) {
         categoryEntity category = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFound(categoryId, "Category", "categoryId"));
-        productEntity product = modelMapper.map(productRequest,productEntity.class);
+        productEntity product = modelMapper.map(productRequest, productEntity.class);
         product.setImage("defaultImage.jpg");
         product.setCategory(category);
         double specialPrice = (product.getDiscount() * 0.01) * product.getPrice();
@@ -76,7 +76,7 @@ public class productImpl implements productService {
     public productRequest updateProduct(productRequest productRequest, Long productId) {
 //        get the existing product
         productEntity existingProduct = productRepository.findById(productId).orElseThrow(() -> new ResourceNotFound(productId, "productId", "Product"));
-        productEntity product = modelMapper.map(productRequest,productEntity.class);
+        productEntity product = modelMapper.map(productRequest, productEntity.class);
 //        update the product
         existingProduct.setProductName(product.getProductName());
         existingProduct.setDescription(product.getDescription());
@@ -103,7 +103,33 @@ public class productImpl implements productService {
 
     @Override
     public productRequest updateProductImage(Long productId, MultipartFile image) {
-        return null;
+//        Get the Product from DB
+        productEntity savedProduct = productRepository.findById((productId)).orElseThrow(() -> new ResourceNotFound(productId, "productId", "Product"));
+//        Upload image to server
+
+//        filename of uploaded image
+        String path = "images/";
+        String filename = uploadImage(path, image);
+//        update new file name to product
+        savedProduct.setImage(filename);
+//        save the product
+        productEntity updatedProduct = productRepository.save(savedProduct);
+//        return Dto after mapping product Dto
+        return modelMapper.map(updatedProduct, productRequest.class);
+
+
+    }
+
+    private String uploadImage(String path, MultipartFile image) {
+//        filename of current / original file
+
+//        Generate the unique file name
+
+//        check if the path exists and create
+
+//        upload to Server
+        
+//        return file name
     }
 
 }
