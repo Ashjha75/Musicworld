@@ -7,18 +7,16 @@ import com.example.springcommerce.entity.productEntity;
 import com.example.springcommerce.exception.ResourceNotFound;
 import com.example.springcommerce.repository.categoryRepo;
 import com.example.springcommerce.repository.productRepo;
+import com.example.springcommerce.service.fileService;
 import com.example.springcommerce.service.productService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class productImpl implements productService {
@@ -26,12 +24,17 @@ public class productImpl implements productService {
     private final productRepo productRepository;
     private final categoryRepo categoryRepository;
     private final ModelMapper modelMapper;
+    private final fileService fileService;
+
+    @Value("${project.image}")
+    private String path ;
 
     @Autowired
-    public productImpl(productRepo productRepository, categoryRepo categoryRepository, ModelMapper modelMapper) {
+    public productImpl(productRepo productRepository, categoryRepo categoryRepository, ModelMapper modelMapper, fileService fileService) {
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
         this.modelMapper = modelMapper;
+        this.fileService = fileService;
     }
 
     @Override
@@ -113,8 +116,8 @@ public class productImpl implements productService {
 //        Upload image to server
 
 //        filename of uploaded image
-        String path = "images/";
-        String filename = uploadImage(path, image);
+        String imagePath =path ;
+        String filename = fileService.uploadImage(imagePath, image);
 //        update new file name to product
         savedProduct.setImage(filename);
 //        save the product
@@ -125,26 +128,5 @@ public class productImpl implements productService {
 
     }
 
-    private String uploadImage(String path, MultipartFile file) throws IOException {
-//        filename of current / original file
-        String originalFilename = file.getOriginalFilename();
-
-//        Generate the unique file name
-        String randomId = UUID.randomUUID().toString();
-        String fileName = randomId.concat(originalFilename.substring(originalFilename.lastIndexOf('.')));
-        String filePath = path + File.separator + fileName;
-//        here we have used separator because we want that the file can be saved in any os because windows and unix have different way we have used inbuilt path separator of java
-
-//        check if the path exists and create
-        File folder = new File(path);
-        if (!folder.exists()) {
-            folder.mkdir();
-        }
-
-//        upload to Server
-        Files.copy(file.getInputStream(), Paths.get(filePath));
-//        return file name
-        return fileName;
-    }
 
 }
