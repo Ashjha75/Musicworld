@@ -4,6 +4,7 @@ import com.example.springcommerce.DTO.Request.productRequest;
 import com.example.springcommerce.DTO.Response.productResponse;
 import com.example.springcommerce.entity.categoryEntity;
 import com.example.springcommerce.entity.productEntity;
+import com.example.springcommerce.exception.ApiException;
 import com.example.springcommerce.exception.ResourceNotFound;
 import com.example.springcommerce.repository.categoryRepo;
 import com.example.springcommerce.repository.productRepo;
@@ -27,7 +28,7 @@ public class productImpl implements productService {
     private final fileService fileService;
 
     @Value("${project.image}")
-    private String path ;
+    private String path;
 
     @Autowired
     public productImpl(productRepo productRepository, categoryRepo categoryRepository, ModelMapper modelMapper, fileService fileService) {
@@ -40,15 +41,28 @@ public class productImpl implements productService {
     @Override
     public productRequest addProduct(productRequest productRequest, Long categoryId) {
         categoryEntity category = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFound(categoryId, "Category", "categoryId"));
-        productEntity product = modelMapper.map(productRequest, productEntity.class);
-        product.setImage("defaultImage.jpg");
-        product.setCategory(category);
-        double specialPrice = (product.getDiscount() * 0.01) * product.getPrice();
-        product.setSpecialPrice(specialPrice);
 
-        productEntity savedProduct = productRepository.save(product);
+        boolean isProductNotPresent = true;
 
-        return modelMapper.map(savedProduct, productRequest.class);
+        List<productEntity> products = category.getProducts();
+        for (productEntity productEntity : products) {
+            if (productEntity.getProductName().equals((productRequest.getProductName()))) {
+                isProductNotPresent = false;
+                break;
+            }
+        }
+
+        if (isProductNotPresent) {
+            productEntity product = modelMapper.map(productRequest, productEntity.class);
+            product.setImage("defaultImage.jpg");
+            product.setCategory(category);
+            double specialPrice = (product.getDiscount() * 0.01) * product.getPrice();
+            product.setSpecialPrice(specialPrice);
+            productEntity savedProduct = productRepository.save(product);
+            return modelMapper.map(savedProduct, productRequest.class);
+        } else {
+            throw new ApiException("Product Already Exists");
+        }
     }
 
     @Override
@@ -116,7 +130,7 @@ public class productImpl implements productService {
 //        Upload image to server
 
 //        filename of uploaded image
-        String imagePath =path ;
+        String imagePath = path;
         String filename = fileService.uploadImage(imagePath, image);
 //        update new file name to product
         savedProduct.setImage(filename);
