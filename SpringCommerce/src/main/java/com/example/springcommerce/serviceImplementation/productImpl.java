@@ -68,6 +68,9 @@ public class productImpl implements productService {
     @Override
     public productResponse getAllProducts() {
         List<productEntity> products = productRepository.findAll();
+        if (products.isEmpty()) {
+            throw new ApiException("No Product Found!");
+        }
         List<productRequest> productRequests = products.stream().map(entity -> modelMapper.map(entity, productRequest.class)).toList();
 
         productResponse productResponse = new productResponse();
@@ -79,6 +82,9 @@ public class productImpl implements productService {
     public productResponse getProductByCategory(Long categoryId) {
         categoryEntity category = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFound(categoryId, "categoryId", "Category"));
         List<productEntity> products = productRepository.findByCategoryOrderByPriceAsc(category);
+        if (products.isEmpty()) {
+            throw new ApiException("No Product Found!");
+        }
         List<productRequest> productRequests = products.stream().map(entity -> modelMapper.map(entity, productRequest.class)).toList();
         productResponse productResponse = new productResponse();
         productResponse.setProducts(productRequests);
@@ -88,6 +94,9 @@ public class productImpl implements productService {
     @Override
     public productResponse getProductByKeyWord(String keyWord) {
         List<productEntity> products = productRepository.findByProductNameLikeIgnoreCase("%" + keyWord + "%");
+        if (products.isEmpty()) {
+            throw new ApiException("No Product Found!");
+        }
         List<productRequest> productRequests = products.stream().map(entity -> modelMapper.map(entity, productRequest.class)).toList();
         productResponse productResponse = new productResponse();
         productResponse.setProducts(productRequests);
@@ -98,6 +107,7 @@ public class productImpl implements productService {
     public productRequest updateProduct(productRequest productRequest, Long productId) {
 //        get the existing product
         productEntity existingProduct = productRepository.findById(productId).orElseThrow(() -> new ResourceNotFound(productId, "productId", "Product"));
+
         productEntity product = modelMapper.map(productRequest, productEntity.class);
 //        update the product
         existingProduct.setProductName(product.getProductName());
