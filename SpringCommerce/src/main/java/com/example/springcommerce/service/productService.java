@@ -10,15 +10,15 @@ public interface productService {
 
     productRequest addProduct(productRequest productEntity, Long categoryId);
 
-    productResponse getAllProducts();
+    productResponse getProductByCategory(Long categoryId, Integer pageNumber, Integer pageSize, String sortBy, String sortOrder);
 
-    productResponse getProductByCategory(Long categoryId);
-
-    productResponse getProductByKeyWord(String keyWord);
+    productResponse getProductByKeyWord(String keyWord, Integer pageNumber, Integer pageSize, String sortBy, String sortOrder);
 
     productRequest updateProduct(productRequest productEntity, Long productId);
 
     productRequest deleteProduct(Long productId);
 
     productRequest updateProductImage(Long productId, MultipartFile image) throws IOException;
+
+    productResponse getAllProducts(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder);
 }

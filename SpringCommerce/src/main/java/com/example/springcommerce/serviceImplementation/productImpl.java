@@ -13,6 +13,10 @@ import com.example.springcommerce.service.productService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -66,8 +70,14 @@ public class productImpl implements productService {
     }
 
     @Override
-    public productResponse getAllProducts() {
-        List<productEntity> products = productRepository.findAll();
+    public productResponse getAllProducts(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder) {
+
+        Sort sortByAndOrder = sortOrder.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+
+        Pageable pageDetails = PageRequest.of(pageNumber, pageSize, sortByAndOrder);
+        Page<productEntity> pageProducts = productRepository.findAll(pageDetails);
+
+        List<productEntity> products = pageProducts.getContent();
         if (products.isEmpty()) {
             throw new ApiException("No Product Found!");
         }
@@ -75,31 +85,54 @@ public class productImpl implements productService {
 
         productResponse productResponse = new productResponse();
         productResponse.setProducts(productRequests);
+        productResponse.setPageNumber(pageProducts.getNumber());
+        productResponse.setPageSize(pageProducts.getSize());
+        productResponse.setTotalElments(pageProducts.getTotalElements());
+        productResponse.setTotalPages(pageProducts.getTotalPages());
+        productResponse.setLastPage(pageProducts.isLast());
         return productResponse;
     }
 
     @Override
-    public productResponse getProductByCategory(Long categoryId) {
+    public productResponse getProductByCategory(Long categoryId, Integer pageNumber, Integer pageSize, String sortBy, String sortOrder) {
         categoryEntity category = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFound(categoryId, "categoryId", "Category"));
-        List<productEntity> products = productRepository.findByCategoryOrderByPriceAsc(category);
+        Sort sortByAndOrder = sortOrder.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+        Pageable pageDetails = PageRequest.of(pageNumber, pageSize, sortByAndOrder);
+        Page<productEntity> pageProducts = productRepository.findByCategoryOrderByPriceAsc(category, pageDetails);
+        List<productEntity> products = pageProducts.getContent();
         if (products.isEmpty()) {
             throw new ApiException("No Product Found!");
         }
         List<productRequest> productRequests = products.stream().map(entity -> modelMapper.map(entity, productRequest.class)).toList();
         productResponse productResponse = new productResponse();
         productResponse.setProducts(productRequests);
+        productResponse.setProducts(productRequests);
+        productResponse.setPageNumber(pageProducts.getNumber());
+        productResponse.setPageSize(pageProducts.getSize());
+        productResponse.setTotalElments(pageProducts.getTotalElements());
+        productResponse.setTotalPages(pageProducts.getTotalPages());
+        productResponse.setLastPage(pageProducts.isLast());
         return productResponse;
     }
 
     @Override
-    public productResponse getProductByKeyWord(String keyWord) {
-        List<productEntity> products = productRepository.findByProductNameLikeIgnoreCase("%" + keyWord + "%");
+    public productResponse getProductByKeyWord(String keyWord, Integer pageNumber, Integer pageSize, String sortBy, String sortOrder) {
+        Sort sortByAndOrder = sortOrder.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+        Pageable pageDetails = PageRequest.of(pageNumber, pageSize, sortByAndOrder);
+        Page<productEntity> pageProducts = productRepository.findByProductNameLikeIgnoreCase("%" + keyWord + "%", pageDetails);
+        List<productEntity> products = pageProducts.getContent();
         if (products.isEmpty()) {
             throw new ApiException("No Product Found!");
         }
         List<productRequest> productRequests = products.stream().map(entity -> modelMapper.map(entity, productRequest.class)).toList();
         productResponse productResponse = new productResponse();
         productResponse.setProducts(productRequests);
+        productResponse.setProducts(productRequests);
+        productResponse.setPageNumber(pageProducts.getNumber());
+        productResponse.setPageSize(pageProducts.getSize());
+        productResponse.setTotalElments(pageProducts.getTotalElements());
+        productResponse.setTotalPages(pageProducts.getTotalPages());
+        productResponse.setLastPage(pageProducts.isLast());
         return productResponse;
     }
 

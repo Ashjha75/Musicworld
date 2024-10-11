@@ -13,4 +13,10 @@ import java.util.List;
 @AllArgsConstructor
 public class productResponse {
     private List<productRequest> products;
+
+    private Integer pageNumber;
+    private Integer pageSize;
+    private Long totalElments;
+    private Integer totalPages;
+    private boolean isLastPage;
 }
