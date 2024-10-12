@@ -8,7 +8,7 @@ public class SpringCommerceApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(SpringCommerceApplication.class, args);
-        System.out.println("I am Working Fine Bro 😎😎😎👌");
+        System.out.println("I am Working Fine Bro ✌️😎😎👌");
     }
 
 }
