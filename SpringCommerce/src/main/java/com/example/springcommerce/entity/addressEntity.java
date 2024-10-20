@@ -3,6 +3,7 @@ package com.example.springcommerce.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -37,6 +38,7 @@ public class addressEntity {
     @Size(min = 6, message = "Pin code must contains atleast 3 Characters")
     private String pinCode;
 
+    @ToString.Exclude
     @ManyToMany(mappedBy = "address")
     private List<userEntity> user;
 

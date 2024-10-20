@@ -4,6 +4,7 @@ import com.example.springcommerce.utils.Enums.AppRoles;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @NoArgsConstructor
@@ -15,6 +16,7 @@ public class roleEntity {
     private Integer roleId;
 
     //    as default Enum is Integer in Database
+    @ToString.Exclude
     @Enumerated(EnumType.STRING)
     @Column(length = 20, name = "role_name")
     private AppRoles role;
