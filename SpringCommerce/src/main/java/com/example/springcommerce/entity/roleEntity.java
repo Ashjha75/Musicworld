@@ -14,9 +14,9 @@ public class roleEntity {
     @Column(name = "role_id")
     private Integer roleId;
 
-//    as default Enum is Integer in Database
+    //    as default Enum is Integer in Database
     @Enumerated(EnumType.STRING)
-    @Column(length=20, name ="role_name")
+    @Column(length = 20, name = "role_name")
     private AppRoles role;
 
     public roleEntity(AppRoles role) {

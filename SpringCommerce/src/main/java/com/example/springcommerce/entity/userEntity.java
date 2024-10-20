@@ -14,10 +14,10 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "users",
-uniqueConstraints = {
-        @UniqueConstraint(columnNames = "username"),
-        @UniqueConstraint(columnNames = "email")
-})
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "username"),
+                @UniqueConstraint(columnNames = "email")
+        })
 public class userEntity {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
@@ -40,7 +40,7 @@ public class userEntity {
     @Email
     private String email;
 
-    public userEntity( String username, String password, String email) {
+    public userEntity(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -53,4 +53,8 @@ public class userEntity {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<roleEntity> roles = new HashSet<>();
+
+
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    private Set<productEntity> productEntities;
 }

@@ -33,4 +33,8 @@ public class productEntity {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private categoryEntity category;
+
+    @ManyToOne
+    @JoinColumn(name = "seller_id")
+    private userEntity user;
 }
