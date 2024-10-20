@@ -13,21 +13,29 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "users")
+@Table(name = "users",
+uniqueConstraints = {
+        @UniqueConstraint(columnNames = "username"),
+        @UniqueConstraint(columnNames = "email")
+})
 public class userEntity {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long userId;
 
     @NotBlank
     @Size(min = 3, max = 50)
+    @Column(name = "username")
     private String username;
 
     @NotBlank
+    @Column(name = "password")
     @Size(min = 6, max = 100)
     private String password;
 
     @NotBlank
+    @Column(name = "email")
     @Size(min = 6, max = 100)
     @Email
     private String email;
