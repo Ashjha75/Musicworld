@@ -13,6 +13,10 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
+
+// This class not have any use in my project just added this for learning purpose for working code refer webSecurityConfig.java
+
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
