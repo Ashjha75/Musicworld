@@ -1,6 +1,7 @@
 package com.example.springcommerce.utils.Security;
 
 import com.example.springcommerce.entity.userEntity;
+import com.example.springcommerce.utils.Security.Service.UserDetailsServiceImpl;
 import io.jsonwebtoken.Jwt;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,7 +25,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     private JwtUtils jwtUtils;
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private UserDetailsServiceImpl userDetailsService;
 
     private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
 
