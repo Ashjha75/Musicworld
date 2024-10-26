@@ -1,4 +1,4 @@
-package com.example.springcommerce.utils.Security;
+package com.example.springcommerce.utils.Security.DTO;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
-public class LoginRequest {
+public class UserInfoRequest {
 
     private String username;
     private String password;

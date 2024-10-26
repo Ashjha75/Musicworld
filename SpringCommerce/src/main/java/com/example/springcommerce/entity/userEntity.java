@@ -39,7 +39,7 @@ public class userEntity {
     @NotBlank
     @Column(name = "email")
     @Size(min = 6, max = 100)
-    @Email
+    @Email(message = "must be a well-formed email address")
     private String email;
 
     public userEntity(String username, String password, String email) {
