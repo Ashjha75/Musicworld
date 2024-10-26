@@ -22,8 +22,7 @@ public class SignupRequest {
     private String password;
 
     @NotBlank
-    @Size(min = 3, max = 20)
-    @Email
+    @Email(message = "must be a well-formed email address")
     private String email;
 
     private Set<String> role;
