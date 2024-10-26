@@ -42,7 +42,7 @@ public class userEntity {
     @Email(message = "must be a well-formed email address")
     private String email;
 
-    public userEntity(String username, String password, String email) {
+    public userEntity(String username,String email, String password) {
         this.username = username;
         this.password = password;
         this.email = email;
