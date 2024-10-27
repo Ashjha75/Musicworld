@@ -1,6 +1,5 @@
 package com.example.springcommerce.exception;
 
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -14,6 +13,15 @@ import java.util.Map;
 @RestControllerAdvice
 public class globalException {
 
+    /**
+     * Handles MethodArgumentNotValidException exceptions.
+     * This exception is thrown when validation on an argument annotated with @Valid fails.
+     * It collects all validation errors and returns them in a structured format.
+     *
+     * @param e the MethodArgumentNotValidException exception
+     * @return a ResponseEntity containing a map of field names and their corresponding error messages,
+     * with an HTTP status of BAD_REQUEST (400)
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> myMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         Map<String, String> response = new HashMap<>();
@@ -22,24 +30,39 @@ public class globalException {
             String message = err.getDefaultMessage();
             response.put(fieldName, message);
         });
-        return new ResponseEntity<Map<String, String>>(response, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * Handles ResourceNotFound exceptions.
+     * This exception is thrown when a requested resource is not found.
+     *
+     * @param e the ResourceNotFound exception
+     * @return a ResponseEntity containing an ApiResponse object with the error message,
+     * with an HTTP status of NOT_FOUND (404)
+     */
     @ExceptionHandler(ResourceNotFound.class)
     public ResponseEntity<ApiResponse> myResourceNotFoundException(ResourceNotFound e) {
         String message = e.getMessage();
-        ApiResponse apiResponse = new ApiResponse(message,false);
+        ApiResponse apiResponse = new ApiResponse(message, false);
         return new ResponseEntity<>(apiResponse, HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * Handles ApiException exceptions.
+     * This exception is thrown for custom API errors.
+     *
+     * @param e the ApiException exception
+     * @return a ResponseEntity containing an ApiResponse object with the error message,
+     * with an HTTP status of BAD_REQUEST (400)
+     */
     @ExceptionHandler(ApiException.class)
     public ResponseEntity<ApiResponse> myApiException(ApiException e) {
         String message = e.getMessage();
-        ApiResponse apiResponse = new ApiResponse(message,false);
-        return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.BAD_REQUEST);
+        ApiResponse apiResponse = new ApiResponse(message, false);
+        return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
     }
 }
-
 
 /* Notes::> for global exceptions
 ### Key Points for Learners:
