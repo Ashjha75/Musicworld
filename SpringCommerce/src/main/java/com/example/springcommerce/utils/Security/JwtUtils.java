@@ -32,7 +32,7 @@ public class JwtUtils {
     @Value("${spring.app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
-    @Value("${spring.ecom.app.jwtCookieName)")
+    @Value("${spring.ecom.app.jwtCookieName}")
     private String jwtCookie;
 
     public String getJwtFromHeader(HttpServletRequest request) {
