@@ -59,35 +59,33 @@ public class AuthController {
      * @param userInfoRequest the user info request containing username and password
      * @return a ResponseEntity containing the user info response with JWT token
      */
-   @PostMapping("/signin")
-public ResponseEntity<?> authenticateUser(@RequestBody UserInfoRequest userInfoRequest) {
-    Authentication authentication;
+    @PostMapping("/signin")
+    public ResponseEntity<?> authenticateUser(@RequestBody UserInfoRequest userInfoRequest) {
+        Authentication authentication;
+        try {
+            authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(userInfoRequest.getUsername(), userInfoRequest.getPassword())
+            );
+        } catch (AuthenticationException e) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("message", "Invalid username or password");
+            map.put("status", false);
+            return new ResponseEntity<>(map, HttpStatus.UNAUTHORIZED);
+        }
 
-    try {
-        authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(userInfoRequest.getUsername(), userInfoRequest.getPassword())
-        );
-    } catch (AuthenticationException e) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("message", "Invalid username or password");
-        map.put("status", false);
-        return new ResponseEntity<>(map, HttpStatus.UNAUTHORIZED);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
+        String jwt = jwtUtils.generateTokenFromUsername(userDetails.getUsername());
+
+        List<String> roles = userDetails.getAuthorities().stream()
+                .map(item -> item.getAuthority())
+                .collect(Collectors.toList());
+
+        UserInfoResponse response = new UserInfoResponse(userDetails.getId(), userDetails.getUsername(), roles);
+
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString()).body(response);
     }
-
-    SecurityContextHolder.getContext().setAuthentication(authentication);
-    UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-    String jwt = jwtUtils.generateTokenFromUsername(userDetails.getUsername());
-
-    List<String> roles = userDetails.getAuthorities().stream()
-            .map(item -> item.getAuthority())
-            .collect(Collectors.toList());
-
-    UserInfoResponse response = new UserInfoResponse(userDetails.getId(), userDetails.getUsername(), roles);
-
-    return ResponseEntity.ok()
-            .header(HttpHeaders.AUTHORIZATION, "Bearer " + jwt)
-            .body(response);
-}
 
     /**
      * Registers a new user.
@@ -142,20 +140,20 @@ public ResponseEntity<?> authenticateUser(@RequestBody UserInfoRequest userInfoR
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
- @GetMapping("/user")
-public ResponseEntity<?> getUserDetails(Authentication authentication) {
-    if (authentication != null) {
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+    @GetMapping("/user")
+    public ResponseEntity<?> getUserDetails(Authentication authentication) {
+        if (authentication != null) {
+            UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-        List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
-                .collect(Collectors.toList());
+            List<String> roles = userDetails.getAuthorities().stream()
+                    .map(item -> item.getAuthority())
+                    .collect(Collectors.toList());
 
-        UserInfoResponse response = new UserInfoResponse(userDetails.getId(), userDetails.getUsername(), roles);
+            UserInfoResponse response = new UserInfoResponse(userDetails.getId(), userDetails.getUsername(), roles);
 
-        return ResponseEntity.ok().body(response);
-    } else {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No user logged in");
+            return ResponseEntity.ok().body(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No user logged in");
+        }
     }
-}
 }

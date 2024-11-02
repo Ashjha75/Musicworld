@@ -56,6 +56,11 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         logger.debug("Authorization Header: {}", headerAuth);
         if (headerAuth != null && headerAuth.startsWith("Bearer ")) {
             return headerAuth.substring(7);
+        } else {
+            String jwtFromCookies = jwtUtils.getJwtFromCookies(request);
+            if (jwtFromCookies != null) {
+                return jwtFromCookies;
+            }
         }
         return null;
     }
