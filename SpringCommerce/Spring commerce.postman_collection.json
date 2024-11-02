@@ -17,7 +17,8 @@
 							{
 								"key": "Authorization",
 								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTcyOTk2MDM2MCwiZXhwIjoxNzMwODI0MzYwfQ.dZardrVVR9IRY6AF7IpJHupY_e-ySwVa1haw-LJFFjIHWviAIUOoiHQQTPpITZQe1fk5Dt1YvfRd7wjNyXpi8g",
-								"type": "text"
+								"type": "text",
+								"disabled": true
 							},
 							{
 								"key": "pageNumber",
@@ -231,7 +232,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"user1\",\r\n    \"password\": \"password1\",\r\n    \"email\": \"example@example.com\",\r\n    \"role\": \"admin\"\r\n}",
+							"raw": "{\r\n    \"username\": \"TEst user123\",\r\n    \"password\": \"password1\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -249,7 +250,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"TEst user12\",\r\n    \"password\": \"password1\",\r\n    \"email\": \"ashish@gmail.com\",\r\n    \"role\": [\"admin\"]\r\n}",
+							"raw": "{\r\n    \"username\": \"TEst user123\",\r\n    \"password\": \"password1\",\r\n    \"email\": \"ashis23h@gmail.com\",\r\n    \"role\": [\"admi111111\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -257,6 +258,31 @@
 							}
 						},
 						"url": "{{Base_URL}}/api/auth/signup"
+					},
+					"response": []
+				},
+				{
+					"name": "currentUserName",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTcyOTk2MDM2MCwiZXhwIjoxNzMwODI0MzYwfQ.dZardrVVR9IRY6AF7IpJHupY_e-ySwVa1haw-LJFFjIHWviAIUOoiHQQTPpITZQe1fk5Dt1YvfRd7wjNyXpi8g",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": "{{Base_URL}}/api/auth/user"
+					},
+					"response": []
+				},
+				{
+					"name": "Signout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "{{Base_URL}}/api/auth/signout"
 					},
 					"response": []
 				}
