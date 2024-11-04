@@ -16,11 +16,12 @@ import java.util.List;
 public class cartEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "cart_id")
     private Long cartId;
 
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    private Long userId;
+    private userEntity user;
 
     @OneToMany(mappedBy = "cart", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval = true)
     private List<cartItemsEntity> cartItems = new ArrayList<>();

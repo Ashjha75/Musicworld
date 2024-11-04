@@ -17,11 +17,11 @@ public class cartItemsEntity {
     private Long cartItemID;
 
     @ManyToOne
-    @JoinColumn(name = "cart_id", referencedColumnName = "cart_id")
+    @JoinColumn(name = "cart_id")
     private cartEntity cart;
 
     @ManyToOne
-    @JoinColumn(name = "product_id", referencedColumnName = "product_id")
+    @JoinColumn(name = "product_id")
     private productEntity product;
 
     private Integer quantity;

@@ -42,7 +42,7 @@ public class userEntity {
     @Email(message = "must be a well-formed email address")
     private String email;
 
-    public userEntity(String username,String email, String password) {
+    public userEntity(String username, String email, String password) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -67,4 +67,8 @@ public class userEntity {
     @ToString.Exclude
     @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
     private Set<productEntity> productEntities;
+
+    @ToString.Exclude
+    @OneToOne(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    private cartEntity cart;
 }
