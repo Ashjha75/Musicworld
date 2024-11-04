@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.action.internal.OrphanRemovalAction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,8 @@ public class cartEntity {
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private Long userId;
 
-    @OneToMany(mappedBy = "cart",cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE, OrphanRemovalAction.DELETE})
-
+    @OneToMany(mappedBy = "cart", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval = true)
     private List<cartItemsEntity> cartItems = new ArrayList<>();
+
+    private double totalPrice = 0.00;
 }
