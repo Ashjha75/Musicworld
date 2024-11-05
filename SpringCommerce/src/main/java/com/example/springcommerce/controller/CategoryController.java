@@ -3,7 +3,6 @@ package com.example.springcommerce.controller;
 import com.example.springcommerce.DTO.Request.categoryRequest;
 import com.example.springcommerce.DTO.Response.CategoryResponse;
 import com.example.springcommerce.config.AppConstants;
-import com.example.springcommerce.entity.categoryEntity;
 import com.example.springcommerce.service.categoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
