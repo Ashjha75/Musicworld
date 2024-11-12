@@ -4,6 +4,7 @@ import com.example.springcommerce.DTO.Request.categoryRequest;
 import com.example.springcommerce.DTO.Response.CategoryResponse;
 import com.example.springcommerce.config.AppConstants;
 import com.example.springcommerce.service.categoryService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,18 +37,21 @@ public class CategoryController {
     }
 
     @PostMapping
+    @Operation(summary = "Add a new category", description = "Add a new category to the database")
     public ResponseEntity<categoryRequest> addCategory(@Valid @RequestBody categoryRequest category) {
         categoryRequest response = categoryService.addCategory(category);
         return new ResponseEntity<categoryRequest>(response, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Update a category", description = "Update an existing category in the database")
     public ResponseEntity<categoryRequest> updateCategory(@Valid @RequestBody categoryRequest category, @PathVariable Long id) {
         categoryRequest updatedCategory = categoryService.updateCategory(category, id);
         return ResponseEntity.ok(updatedCategory);
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Delete a category", description = "Delete a category from the database")
     public ResponseEntity<categoryRequest> deleteCategory(@PathVariable Long id) {
         categoryRequest response = categoryService.deleteCategory(id);
         return ResponseEntity.ok(response);

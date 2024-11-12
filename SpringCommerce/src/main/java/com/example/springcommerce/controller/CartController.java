@@ -1,6 +1,7 @@
 package com.example.springcommerce.controller;
 
 import com.example.springcommerce.DTO.Request.cartRequest;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,7 @@ public class CartController {
     }
 
     @PostMapping("/product/{productId}/quantity/{quantity}")
+    @Operation(summary = "Add product to cart", description = "Add a product to the cart with the specified quantity")
     public ResponseEntity<cartRequest> addProductToCart(@PathVariable Long productId, @PathVariable Integer quantity) {
 
         cartRequest cartRequest = cartService.addProductTocart(productId, quantity);

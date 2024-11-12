@@ -11,6 +11,7 @@ import com.example.springcommerce.utils.Security.DTO.UserInfoRequest;
 import com.example.springcommerce.utils.Security.DTO.UserInfoResponse;
 import com.example.springcommerce.utils.Security.JwtUtils;
 import com.example.springcommerce.utils.Security.Service.UserDetailsImpl;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +63,7 @@ public class AuthController {
      * @return a ResponseEntity containing the user info response with JWT token
      */
     @PostMapping("/signin")
+    @Operation(summary = "Authenticate user", description = "Authenticate user and return JWT token")
     public ResponseEntity<?> authenticateUser(@RequestBody UserInfoRequest userInfoRequest) {
         Authentication authentication;
         try {
@@ -96,6 +98,7 @@ public class AuthController {
      * @return a ResponseEntity containing a message response
      */
     @PostMapping("/signup")
+    @Operation(summary = "Register user", description = "Register a new user")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signupRequest) {
         if (userRepo.existsByUsername(signupRequest.getUsername())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Username is already taken!"));
@@ -143,6 +146,7 @@ public class AuthController {
     }
 
     @GetMapping("/user")
+    @Operation(summary = "Get user details", description = "Get details of the currently logged in user")
     public ResponseEntity<?> getUserDetails(Authentication authentication) {
         if (authentication != null) {
             UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
@@ -160,6 +164,7 @@ public class AuthController {
     }
 
     @PostMapping("/signout")
+    @Operation(summary = "Sign out user", description = "Sign out the currently logged in user")
     public ResponseEntity<?> signoutUser() {
         ResponseCookie jwtCookie = jwtUtils.getCleanJwtCookie();
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString()).body(new MessageResponse("You've been signed out"));
