@@ -1,6 +1,7 @@
 package com.example.springcommerce.controller;
 
 import com.example.springcommerce.DTO.Request.cartRequest;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import com.example.springcommerce.service.cartService;
 
 @RestController
 @RequestMapping("/api/cart")
+@Tag(name = "Cart API", description = "Endpoints for managing the cart")
 public class CartController {
 
     private final cartService cartService;

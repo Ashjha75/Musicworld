@@ -11,6 +11,7 @@ import com.example.springcommerce.utils.Security.DTO.UserInfoRequest;
 import com.example.springcommerce.utils.Security.DTO.UserInfoResponse;
 import com.example.springcommerce.utils.Security.JwtUtils;
 import com.example.springcommerce.utils.Security.Service.UserDetailsImpl;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -33,6 +34,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/api/auth")
+@Tag(name = "Authentication API", description = "Endpoints for user authentication and registration")
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;

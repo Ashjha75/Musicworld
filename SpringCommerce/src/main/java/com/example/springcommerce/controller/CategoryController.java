@@ -4,6 +4,7 @@ import com.example.springcommerce.DTO.Request.categoryRequest;
 import com.example.springcommerce.DTO.Response.CategoryResponse;
 import com.example.springcommerce.config.AppConstants;
 import com.example.springcommerce.service.categoryService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/categories")
+@Tag(name = "Category API", description = "Endpoints for managing categories")
 public class CategoryController {
 
     private final categoryService categoryService;
