@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class cartRequest {
-   private Long cartId;
-   private Double totalPrice = 0.00;
-   private List<productRequest> cartItems=new ArrayList<>();
+    private Long cartId;
+    private Double totalPrice = 0.00;
+    private List<productRequest> cartItems = new ArrayList<>();
 }

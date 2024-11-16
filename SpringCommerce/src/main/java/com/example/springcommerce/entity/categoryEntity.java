@@ -24,6 +24,6 @@ public class categoryEntity {
     @Size(min = 3, max = 50, message = "Category name must be between 3 and 50 characters")
     private String categoryName;
 
-    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<productEntity> products;
 }
