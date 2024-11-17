@@ -1,292 +1,292 @@
 {
-	"info": {
-		"_postman_id": "d1222efa-1a7e-485f-a990-b5f23118ab54",
-		"name": "Spring commerce",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
-		"_exporter_id": "28289808"
-	},
-	"item": [
-		{
-			"name": "Category",
-			"item": [
-				{
-					"name": "Get All Categories",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTcyOTk2MDM2MCwiZXhwIjoxNzMwODI0MzYwfQ.dZardrVVR9IRY6AF7IpJHupY_e-ySwVa1haw-LJFFjIHWviAIUOoiHQQTPpITZQe1fk5Dt1YvfRd7wjNyXpi8g",
-								"type": "text",
-								"disabled": true
-							},
-							{
-								"key": "pageNumber",
-								"value": "3",
-								"type": "text",
-								"disabled": true
-							}
-						],
-						"url": {
-							"raw": "{{Base_URL}}/api/categories?page=5",
-							"host": [
-								"{{Base_URL}}"
-							],
-							"path": [
-								"api",
-								"categories"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "5"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Category",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTcyOTk2MTEyMSwiZXhwIjoxNzMwODI1MTIxfQ.3LSRf3qW2L47uOc_7LWcX2tKvqkZ0KX3ft4OSQABckWeI0d9dRDR2Gu8tKQR30v3DP9fd4GrcB0Rq9yRQbr-2g",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"categoryName\": \"Thand rakh\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{Base_URL}}/api/categories"
-					},
-					"response": []
-				},
-				{
-					"name": "Edit Category{id}",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": {
-								"token": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTcyOTk2MDM2MCwiZXhwIjoxNzMwODI0MzYwfQ.dZardrVVR9IRY6AF7IpJHupY_e-ySwVa1haw-LJFFjIHWviAIUOoiHQQTPpITZQe1fk5Dt1YvfRd7wjNyXpi8g"
-							}
-						},
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTcyOTk2MTEyMSwiZXhwIjoxNzMwODI1MTIxfQ.3LSRf3qW2L47uOc_7LWcX2tKvqkZ0KX3ft4OSQABckWeI0d9dRDR2Gu8tKQR30v3DP9fd4GrcB0Rq9yRQbr-2g",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"categoryName\": \"Main Category11 \"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{Base_URL}}/api/categories/2"
-					},
-					"response": []
-				},
-				{
-					"name": "Delete{id}",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": "{{Base_URL}}/api/v1/categories/101"
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Product",
-			"item": [
-				{
-					"name": "Add Product",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTcyOTk2MDM2MCwiZXhwIjoxNzMwODI0MzYwfQ.dZardrVVR9IRY6AF7IpJHupY_e-ySwVa1haw-LJFFjIHWviAIUOoiHQQTPpITZQe1fk5Dt1YvfRd7wjNyXpi8g",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n\r\n    \"productName\": \"Realme Phone\",\r\n    \"image\": \"sampleImage.jpg\",\r\n    \"description\": \"This is a sample product description.\",\r\n    \"quantity\": 10,\r\n    \"price\": 99.99,\r\n    \"discount\": 10.0\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{Base_URL}}/api/v1/admin/categories/6/product"
-					},
-					"response": []
-				},
-				{
-					"name": "Update Product",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n\r\n    \"productName\": \"King MRF Bat\",\r\n    \"image\": \"sampleImage.jpg\",\r\n    \"description\": \"This is a sample product description.\",\r\n    \"quantity\": 10,\r\n    \"price\": 99.99,\r\n    \"discount\": 10.0\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{Base_URL}}/api/v1/admin/products/productId/2"
-					},
-					"response": []
-				},
-				{
-					"name": "Get All Products",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTcyOTk2MTEyMSwiZXhwIjoxNzMwODI1MTIxfQ.3LSRf3qW2L47uOc_7LWcX2tKvqkZ0KX3ft4OSQABckWeI0d9dRDR2Gu8tKQR30v3DP9fd4GrcB0Rq9yRQbr-2g",
-								"type": "text"
-							}
-						],
-						"url": "{{Base_URL}}/api/public/products"
-					},
-					"response": []
-				},
-				{
-					"name": "Get Products By Category",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": "{{Base_URL}}/api/v1/public/categories/2/products"
-					},
-					"response": []
-				},
-				{
-					"name": "Get Product BY Keyword",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": "{{Base_URL}}/api/v1/public/products/keyWord/zu"
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Product",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": "{{Base_URL}}/api/v1/admin/products/productId/2"
-					},
-					"response": []
-				},
-				{
-					"name": "Add Product Image",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "image",
-									"type": "file",
-									"src": "/C:/Users/ashis/OneDrive/Pictures/Wallpaper/blue.jpg"
-								}
-							]
-						},
-						"url": "{{Base_URL}}/api/v1/products/3/image"
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Auth",
-			"item": [
-				{
-					"name": "Signin",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"TEst user123\",\r\n    \"password\": \"password1\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{Base_URL}}/api/auth/signin"
-					},
-					"response": []
-				},
-				{
-					"name": "Signup",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"TEst user123\",\r\n    \"password\": \"password1\",\r\n    \"email\": \"ashis23h@gmail.com\",\r\n    \"role\": [\"admi111111\"]\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{Base_URL}}/api/auth/signup"
-					},
-					"response": []
-				},
-				{
-					"name": "currentUserName",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTcyOTk2MDM2MCwiZXhwIjoxNzMwODI0MzYwfQ.dZardrVVR9IRY6AF7IpJHupY_e-ySwVa1haw-LJFFjIHWviAIUOoiHQQTPpITZQe1fk5Dt1YvfRd7wjNyXpi8g",
-								"type": "text",
-								"disabled": true
-							}
-						],
-						"url": "{{Base_URL}}/api/auth/user"
-					},
-					"response": []
-				},
-				{
-					"name": "Signout",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": "{{Base_URL}}/api/auth/signout"
-					},
-					"response": []
-				}
-			]
-		}
-	]
+  "info": {
+    "_postman_id": "d1222efa-1a7e-485f-a990-b5f23118ab54",
+    "name": "Spring commerce",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+    "_exporter_id": "28289808"
+  },
+  "item": [
+    {
+      "name": "Category",
+      "item": [
+        {
+          "name": "Get All Categories",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTcyOTk2MDM2MCwiZXhwIjoxNzMwODI0MzYwfQ.dZardrVVR9IRY6AF7IpJHupY_e-ySwVa1haw-LJFFjIHWviAIUOoiHQQTPpITZQe1fk5Dt1YvfRd7wjNyXpi8g",
+                "type": "text",
+                "disabled": true
+              },
+              {
+                "key": "pageNumber",
+                "value": "3",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{Base_URL}}/api/categories?page=5",
+              "host": [
+                "{{Base_URL}}"
+              ],
+              "path": [
+                "api",
+                "categories"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "5"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Category",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTcyOTk2MTEyMSwiZXhwIjoxNzMwODI1MTIxfQ.3LSRf3qW2L47uOc_7LWcX2tKvqkZ0KX3ft4OSQABckWeI0d9dRDR2Gu8tKQR30v3DP9fd4GrcB0Rq9yRQbr-2g",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"categoryName\": \"Thand rakh\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{Base_URL}}/api/categories"
+          },
+          "response": []
+        },
+        {
+          "name": "Edit Category{id}",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "token": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTcyOTk2MDM2MCwiZXhwIjoxNzMwODI0MzYwfQ.dZardrVVR9IRY6AF7IpJHupY_e-ySwVa1haw-LJFFjIHWviAIUOoiHQQTPpITZQe1fk5Dt1YvfRd7wjNyXpi8g"
+              }
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTcyOTk2MTEyMSwiZXhwIjoxNzMwODI1MTIxfQ.3LSRf3qW2L47uOc_7LWcX2tKvqkZ0KX3ft4OSQABckWeI0d9dRDR2Gu8tKQR30v3DP9fd4GrcB0Rq9yRQbr-2g",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"categoryName\": \"Main Category11 \"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{Base_URL}}/api/categories/2"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete{id}",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{Base_URL}}/api/v1/categories/101"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Product",
+      "item": [
+        {
+          "name": "Add Product",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTcyOTk2MDM2MCwiZXhwIjoxNzMwODI0MzYwfQ.dZardrVVR9IRY6AF7IpJHupY_e-ySwVa1haw-LJFFjIHWviAIUOoiHQQTPpITZQe1fk5Dt1YvfRd7wjNyXpi8g",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\r\n    \"productName\": \"Realme Phone\",\r\n    \"image\": \"sampleImage.jpg\",\r\n    \"description\": \"This is a sample product description.\",\r\n    \"quantity\": 10,\r\n    \"price\": 99.99,\r\n    \"discount\": 10.0\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{Base_URL}}/api/v1/admin/categories/6/product"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Product",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\r\n    \"productName\": \"King MRF Bat\",\r\n    \"image\": \"sampleImage.jpg\",\r\n    \"description\": \"This is a sample product description.\",\r\n    \"quantity\": 10,\r\n    \"price\": 99.99,\r\n    \"discount\": 10.0\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{Base_URL}}/api/v1/admin/products/productId/2"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Products",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTcyOTk2MTEyMSwiZXhwIjoxNzMwODI1MTIxfQ.3LSRf3qW2L47uOc_7LWcX2tKvqkZ0KX3ft4OSQABckWeI0d9dRDR2Gu8tKQR30v3DP9fd4GrcB0Rq9yRQbr-2g",
+                "type": "text"
+              }
+            ],
+            "url": "{{Base_URL}}/api/public/products"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Products By Category",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{Base_URL}}/api/v1/public/categories/2/products"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Product BY Keyword",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{Base_URL}}/api/v1/public/products/keyWord/zu"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Product",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{Base_URL}}/api/v1/admin/products/productId/2"
+          },
+          "response": []
+        },
+        {
+          "name": "Add Product Image",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": "/C:/Users/ashis/OneDrive/Pictures/Wallpaper/blue.jpg"
+                }
+              ]
+            },
+            "url": "{{Base_URL}}/api/v1/products/3/image"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Signin",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"TEst user123\",\r\n    \"password\": \"password1\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{Base_URL}}/api/auth/signin"
+          },
+          "response": []
+        },
+        {
+          "name": "Signup",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"TEst user123\",\r\n    \"password\": \"password1\",\r\n    \"email\": \"ashis23h@gmail.com\",\r\n    \"role\": [\"admi111111\"]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{Base_URL}}/api/auth/signup"
+          },
+          "response": []
+        },
+        {
+          "name": "currentUserName",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTcyOTk2MDM2MCwiZXhwIjoxNzMwODI0MzYwfQ.dZardrVVR9IRY6AF7IpJHupY_e-ySwVa1haw-LJFFjIHWviAIUOoiHQQTPpITZQe1fk5Dt1YvfRd7wjNyXpi8g",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "url": "{{Base_URL}}/api/auth/user"
+          },
+          "response": []
+        },
+        {
+          "name": "Signout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "{{Base_URL}}/api/auth/signout"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
 }

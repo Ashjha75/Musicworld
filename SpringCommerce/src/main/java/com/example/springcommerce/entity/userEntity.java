@@ -41,13 +41,6 @@ public class userEntity {
     @Size(min = 6, max = 100)
     @Email(message = "must be a well-formed email address")
     private String email;
-
-    public userEntity(String username, String email, String password) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-    }
-
     @Setter
     @Getter
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
@@ -55,7 +48,6 @@ public class userEntity {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<roleEntity> roles = new HashSet<>();
-
     @Setter
     @Getter
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
@@ -63,12 +55,16 @@ public class userEntity {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "address_id"))
     private List<addressEntity> address = new ArrayList<>();
-
     @ToString.Exclude
     @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
     private Set<productEntity> productEntities;
-
     @ToString.Exclude
     @OneToOne(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
     private cartEntity cart;
+
+    public userEntity(String username, String email, String password) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
 }

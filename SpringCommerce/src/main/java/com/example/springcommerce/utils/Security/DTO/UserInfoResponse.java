@@ -1,7 +1,7 @@
-
 package com.example.springcommerce.utils.Security.DTO;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 

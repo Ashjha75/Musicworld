@@ -18,13 +18,11 @@ import java.io.IOException;
 
 @Component
 public class AuthTokenFilter extends OncePerRequestFilter {
+    private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
     @Autowired
     private JwtUtils jwtUtils;
-
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
-
-    private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, jakarta.servlet.FilterChain filterChain) throws ServletException, IOException {
@@ -59,10 +57,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
             return headerAuth.substring(7);
         } else {
             String jwtFromCookies = jwtUtils.getJwtFromCookies(request);
-            if (jwtFromCookies != null) {
-                return jwtFromCookies;
-            }
+            return jwtFromCookies;
         }
-        return null;
     }
 }
