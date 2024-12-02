@@ -30,6 +30,6 @@ public class CartController {
 
         cartRequest cartRequest = cartService.addProductTocart(productId, quantity);
 
-        return new ResponseEntity<>(cartRequest, HttpStatus.CREATED);
+        return new ResponseEntity<cartRequest>(cartRequest, HttpStatus.CREATED);
     }
 }
