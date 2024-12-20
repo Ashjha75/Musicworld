@@ -11,7 +11,7 @@ import com.example.springcommerce.repository.cartItemRepo;
 import com.example.springcommerce.repository.cartRepo;
 import com.example.springcommerce.repository.productRepo;
 import com.example.springcommerce.service.cartService;
-//import com.example.springcommerce.utils.AuthUtil;
+import com.example.springcommerce.utils.utilityGroup.AuthUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,9 +37,9 @@ public class cartServiceImpl implements cartService {
     public cartRequest addProductTocart(Long productId, Integer quantity) {
         cartEntity cart = createCart();
 
-        productEntity product = productRepository.findById(productId).orElseThrow(() -> new ResourceNotFound("Product not found"));
+productEntity product = productRepository.findById(productId).orElseThrow(() -> new ResourceNotFound(productId, "ID", "Product"));
 
-        cartItemsEntity cartItem = cartItemsRepository.findCartItemByProductIdCartId(cart.getId(), productId);
+        cartItemsEntity cartItem = cartItemsRepository.findCartItemByProductIDAndCartId(cart.getCartId(), productId);
 
         if (cartItem != null) {
             throw new ApiException("Product " + product.getProductName() + " already exists in cart");
@@ -76,7 +76,7 @@ public class cartServiceImpl implements cartService {
             return productRequest;
         });
 
-        cartRequest.setProducts(productRequestStream.toList());
+        cartRequest.setCartItems(productRequestStream.toList());
         return cartRequest;
     }
 
