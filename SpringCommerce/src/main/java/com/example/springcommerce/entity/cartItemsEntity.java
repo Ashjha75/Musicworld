@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class cartItemsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "cart_itemid")
     private Long cartItemID;
 
     @ManyToOne
