@@ -27,12 +27,17 @@ public class AuthUtil {
         return user.getEmail();
     }
 
-   public userEntity loggedInUser() {
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    userEntity user = userRepo.findByUsername(authentication.getName())
-            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-    return user;
-}
+    public userEntity loggedInUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        userEntity user = userRepo.findByUsername(authentication.getName())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return user;
+    }
 
-
+    public Long loggedInUserId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        userEntity user = userRepo.findByUsername(authentication.getName())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return user.getId();
+    }
 }
