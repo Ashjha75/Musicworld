@@ -38,6 +38,6 @@ public class AuthUtil {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         userEntity user = userRepo.findByUsername(authentication.getName())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        return user.getId();
+        return user.getUserId();
     }
 }
