@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/cart")
 @Tag(name = "Cart API", description = "Endpoints for managing the cart")
@@ -31,4 +33,11 @@ public class CartController {
     }
 
     @GetMapping("/carts")
+    @Operation(summary = "Get all carts", description = "Get all carts")
+    public ResponseEntity<List<cartRequest>> getAllCarts() {
+
+        List<cartRequest> cartRequest = cartService.getAllCarts();
+
+        return new ResponseEntity<List<cartRequest>>(cartRequest, HttpStatus.FOUND);
+    }
 }
