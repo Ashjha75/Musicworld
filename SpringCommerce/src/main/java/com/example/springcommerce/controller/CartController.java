@@ -32,7 +32,7 @@ public class CartController {
         return new ResponseEntity<cartRequest>(cartRequest, HttpStatus.CREATED);
     }
 
-    @GetMapping("/carts")
+    @GetMapping("/get-all-carts")
     @Operation(summary = "Get all carts", description = "Get all carts")
     public ResponseEntity<List<cartRequest>> getAllCarts() {
 
