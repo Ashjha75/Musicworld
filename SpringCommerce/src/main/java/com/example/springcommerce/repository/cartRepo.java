@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface cartRepo extends JpaRepository<cartEntity, Long> {
 
     @Query("SELECT c FROM cartEntity c WHERE c.user.email = ?1")
-     cartEntity findCartByEmail(String email);
+    cartEntity findCartByEmail(String email);
 }

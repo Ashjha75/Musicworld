@@ -37,7 +37,7 @@ public class cartServiceImpl implements cartService {
     public cartRequest addProductTocart(Long productId, Integer quantity) {
         cartEntity cart = createCart();
 
-productEntity product = productRepository.findById(productId).orElseThrow(() -> new ResourceNotFound(productId, "ID", "Product"));
+        productEntity product = productRepository.findById(productId).orElseThrow(() -> new ResourceNotFound(productId, "ID", "Product"));
 
         cartItemsEntity cartItem = cartItemsRepository.findCartItemByProductIDAndCartId(cart.getCartId(), productId);
 
