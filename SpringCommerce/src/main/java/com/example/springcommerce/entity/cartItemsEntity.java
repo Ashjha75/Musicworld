@@ -15,7 +15,7 @@ public class cartItemsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cart_itemid")
-    private Long cartItemID;
+    private Long cartItemid;
 
     @ManyToOne
     @JoinColumn(name = "cart_id")
