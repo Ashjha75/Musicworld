@@ -110,5 +110,19 @@ public class cartServiceImpl implements cartService {
             return cartRequestList;
        }
 
+    @Override
+    public cartRequest getCart(String email, Long cartId) {
+        cartEntity cart = cartRepo.findCartByEmailAndCartId(email, cartId);
+        if (cart == null) {
+            throw new ApiException("Cart not found");
+        }
+        cartRequest cartRequest = modelMapper.map(cart, cartRequest.class);
+        cart.getCartItems().forEach(c->c.getProduct().setQuantity(c.getProduct().getQuantity() + c.getQuantity()));
+        List<productRequest> productRequestList = cart.getCartItems().stream().map(product ->
+                modelMapper.map(product.getProduct(), productRequest.class)).toList();
+
+        return cartRequest;
+    }
+
 
 }
