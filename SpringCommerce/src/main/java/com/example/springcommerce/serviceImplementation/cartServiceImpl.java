@@ -95,20 +95,20 @@ public class cartServiceImpl implements cartService {
 
     @Override
     public List<cartRequest> getAllCarts() {
-       List<cartEntity> cartList = cartRepo.findAll();
-       if (cartList.isEmpty()) {
-           throw new ApiException("No carts found");
-       }
+        List<cartEntity> cartList = cartRepo.findAll();
+        if (cartList.isEmpty()) {
+            throw new ApiException("No carts found");
+        }
 
-       List<cartRequest> cartRequestList = cartList.stream().map(cartEntity -> {
-           cartRequest cartRequest = modelMapper.map(cartEntity, cartRequest.class);
-           List<productRequest> productRequestList = cartEntity.getCartItems().stream().map(product ->
-                   modelMapper.map(product.getProduct(), productRequest.class)).toList();
-              cartRequest.setCartItems(productRequestList);
-                return cartRequest;
-         }).toList();
-            return cartRequestList;
-       }
+        List<cartRequest> cartRequestList = cartList.stream().map(cartEntity -> {
+            cartRequest cartRequest = modelMapper.map(cartEntity, cartRequest.class);
+            List<productRequest> productRequestList = cartEntity.getCartItems().stream().map(product ->
+                    modelMapper.map(product.getProduct(), productRequest.class)).toList();
+            cartRequest.setCartItems(productRequestList);
+            return cartRequest;
+        }).toList();
+        return cartRequestList;
+    }
 
     @Override
     public cartRequest getCart(String email, Long cartId) {
@@ -117,7 +117,7 @@ public class cartServiceImpl implements cartService {
             throw new ApiException("Cart not found");
         }
         cartRequest cartRequest = modelMapper.map(cart, cartRequest.class);
-        cart.getCartItems().forEach(c->c.getProduct().setQuantity(c.getProduct().getQuantity() + c.getQuantity()));
+        cart.getCartItems().forEach(c -> c.getProduct().setQuantity(c.getProduct().getQuantity() + c.getQuantity()));
         List<productRequest> productRequestList = cart.getCartItems().stream().map(product ->
                 modelMapper.map(product.getProduct(), productRequest.class)).toList();
 
