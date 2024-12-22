@@ -54,7 +54,7 @@ public class CartController {
         String email = authUtil.loggedInEmail();
         cartEntity cart = cartRepo.findCartByEmail(email);
         Long cartId = cart.getCartId();
-        cartRequest cartRequest = cartService.getCart(email,cartId);
+        cartRequest cartRequest = cartService.getCart(email, cartId);
 
         return new ResponseEntity<cartRequest>(cartRequest, HttpStatus.FOUND);
     }
