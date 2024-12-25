@@ -189,17 +189,16 @@ public class cartServiceImpl implements cartService {
 
 
         cartItemsEntity cartItem = cartItemsRepository.findCartItemByProductIDAndCartId(cartId, productId);
-
-        if(cartItem == null){
-            throw new ApiException("Product " + product.getProductName() + " does not exist in cart");
+        if (cartItem == null) {
+            throw new ApiException("Product does not exist in cart");
         }
+        productEntity product = cartItem.getProduct();
 
         cartEntity.setTotalPrice(cartEntity.getTotalPrice() - (cartItem.getProductPrice() * cartItem.getQuantity()));
 
-        productEntity product = cartItem.getProduct();
         product.setQuantity(product.getQuantity() + cartItem.getQuantity());
 
-        cartItemRepo.deleteCartItemByProductIDAndCartId(cartId, productId);
+        cartItemsRepository.deleteCartItemByProductIDAndCartId(cartId, productId);
 
         return  "Product " + cartItem.getProduct().getProductName() + " deleted from cart";
 
