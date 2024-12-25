@@ -127,7 +127,7 @@ public class cartServiceImpl implements cartService {
 
     @Transactional
     @Override
-    public cartRequest updateProductQuantityInCart(Long productId, Integer operation){
+    public cartRequest updateProductQuantityInCart(Long productId, Integer quantity){
 
         String email = authutils.loggedInEmail();
         cartEntity cart = cartRepo.findCartByEmail(email);
@@ -140,9 +140,39 @@ public class cartServiceImpl implements cartService {
         if(product.getQuantity() < 1){
             throw new ApiException("Product " + product.getProductName() + " is out of stock");
         }
+        if(product.getQuantity() < quantity){
+            throw new ApiException("Product " + product.getProductName() + " quantity is more than available stock");
+        }
 
+        cartItemsEntity cartItem = cartItemsRepository.findCartItemByProductIDAndCartId(cartId, productId);
 
+        if(cartItem == null){
+            throw new ApiException("Product " + product.getProductName() + " does not exist in cart");
+        }
+//        addProductTocart(productId, quantity);
+        cartItem.setQuantity(cartItem.getQuantity() + quantity);
+        cartItem.setProduct(product);
+        cartItem.setCart(cartEntity);
+        cartItem.setDiscount(product.getDiscount());
+        cartItem.setProductPrice(product.getPrice());
+        cartEntity.setTotalPrice(cartEntity.getTotalPrice() + (product.getSpecialPrice() * quantity));
+        cartItemsRepository.save(cartItem);
+        cartItemsEntity updatedCartItem = cartItemsRepository.save(cartItem);
+        if(updatedCartItem.getQuantity() == 0){
+            cartItemsRepository.delete(updatedCartItem);
+        }
 
+        cartRequest cartRequest = modelMapper.map(cartEntity, cartRequest.class);
+        List<cartItemsEntity> cartItemsList = cartEntity.getCartItems();
+
+        Stream<productRequest> productRequestStream = cartItemsList.stream().map(cartItemsEntity -> {
+            productRequest productRequest = modelMapper.map(cartItemsEntity.getProduct(), productRequest.class);
+            productRequest.setQuantity(cartItemsEntity.getQuantity());
+            return productRequest;
+        });
+
+        cartRequest.setCartItems(productRequestStream.toList());
+        return cartRequest;
     }
 
 
