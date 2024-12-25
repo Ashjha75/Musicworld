@@ -34,6 +34,7 @@ public class cartServiceImpl implements cartService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Transactional
     @Override
     public cartRequest addProductTocart(Long productId, Integer quantity) {
         cartEntity cart = createCart();
@@ -43,7 +44,8 @@ public class cartServiceImpl implements cartService {
         cartItemsEntity cartItem = cartItemsRepository.findCartItemByProductIDAndCartId(cart.getCartId(), productId);
 
         if (cartItem != null) {
-            throw new ApiException("Product " + product.getProductName() + " already exists in cart");
+            updateProductQuantityInCart(productId, quantity);
+//            throw new ApiException("Product " + product.getProductName() + " already exists in cart");
         }
         if (product.getQuantity() == 0) {
             throw new ApiException("Product " + product.getProductName() + " is out of stock");
@@ -161,7 +163,7 @@ public class cartServiceImpl implements cartService {
         cartItemsRepository.save(cartItem);
         cartItemsEntity updatedCartItem = cartItemsRepository.save(cartItem);
         if(updatedCartItem.getQuantity() == 0){
-            cartItemsRepository.delete(updatedCartItem);
+            deleteProductFromCart(productId);
         }
 
         cartRequest cartRequest = modelMapper.map(cartEntity, cartRequest.class);
