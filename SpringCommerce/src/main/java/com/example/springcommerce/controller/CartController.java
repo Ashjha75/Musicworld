@@ -59,4 +59,12 @@ public class CartController {
         return new ResponseEntity<cartRequest>(cartRequest, HttpStatus.FOUND);
     }
 
+    @PutMapping("/product/{productId}/quantity/{operation}")
+    @Operation(summary = "Update product quantity", description = "Update product quantity in the cart")
+    public ResponseEntity<cartRequest> updateCartProduct(@PathVariable Long productId, @PathVariable String operation) {
+
+        cartRequest cartRequest = cartService.updateProductQuantityInCart(productId, operation.equalsIgnoreCase("delete") ? -1 : 1);
+
+        return new ResponseEntity<cartRequest>(cartRequest, HttpStatus.OK);
+    }
 }

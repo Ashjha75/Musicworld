@@ -10,4 +10,6 @@ public interface cartService {
     List<cartRequest> getAllCarts();
 
     cartRequest getCart(String email, Long cartId);
+
+    cartRequest updateProductQuantityInCart(Long productId, Integer delete);
 }

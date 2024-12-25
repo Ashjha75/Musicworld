@@ -12,6 +12,7 @@ import com.example.springcommerce.repository.cartRepo;
 import com.example.springcommerce.repository.productRepo;
 import com.example.springcommerce.service.cartService;
 import com.example.springcommerce.utils.utilityGroup.AuthUtil;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -122,6 +123,26 @@ public class cartServiceImpl implements cartService {
                 modelMapper.map(product.getProduct(), productRequest.class)).toList();
 
         return cartRequest;
+    }
+
+    @Transactional
+    @Override
+    public cartRequest updateProductQuantityInCart(Long productId, Integer operation){
+
+        String email = authutils.loggedInEmail();
+        cartEntity cart = cartRepo.findCartByEmail(email);
+        Long cartId = cart.getCartId();
+
+        cartEntity cartEntity = cartRepo.findById(cartId).orElseThrow(() -> new ResourceNotFound(cartId, "ID", "Cart"));
+
+        productEntity product = productRepository.findById(productId).orElseThrow(() -> new ResourceNotFound(productId, "ID", "Product"));
+
+        if(product.getQuantity() < 1){
+            throw new ApiException("Product " + product.getProductName() + " is out of stock");
+        }
+
+
+
     }
 
 
