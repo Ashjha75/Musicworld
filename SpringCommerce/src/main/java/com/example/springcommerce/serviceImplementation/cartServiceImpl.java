@@ -177,5 +177,40 @@ public class cartServiceImpl implements cartService {
         return cartRequest;
     }
 
+    @Transactional
+    @Override
+    public cartRequest deleteProductFromCart(Long productId) {
+
+        String email = authutils.loggedInEmail();
+        cartEntity cart = cartRepo.findCartByEmail(email);
+        Long cartId = cart.getCartId();
+
+        cartEntity cartEntity = cartRepo.findById(cartId).orElseThrow(() -> new ResourceNotFound(cartId, "ID", "Cart"));
+
+        productEntity product = productRepository.findById(productId).orElseThrow(() -> new ResourceNotFound(productId, "ID", "Product"));
+
+        cartItemsEntity cartItem = cartItemsRepository.findCartItemByProductIDAndCartId(cartId, productId);
+
+        if(cartItem == null){
+            throw new ApiException("Product " + product.getProductName() + " does not exist in cart");
+        }
+
+        cartEntity.setTotalPrice(cartEntity.getTotalPrice() - (product.getSpecialPrice() * cartItem.getQuantity()));
+        cartItemsRepository.delete(cartItem);
+
+        cartRequest cartRequest = modelMapper.map(cartEntity, cartRequest.class);
+        List<cartItemsEntity> cartItemsList = cartEntity.getCartItems();
+
+        Stream<productRequest> productRequestStream = cartItemsList.stream().map(cartItemsEntity -> {
+            productRequest productRequest = modelMapper.map(cartItemsEntity.getProduct(), productRequest.class);
+            productRequest.setQuantity(cartItemsEntity.getQuantity());
+            return productRequest;
+        });
+
+        cartRequest.setCartItems(productRequestStream.toList());
+        return cartRequest;
+
+    }
+
 
 }
