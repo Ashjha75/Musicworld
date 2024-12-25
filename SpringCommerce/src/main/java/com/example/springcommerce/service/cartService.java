@@ -15,5 +15,5 @@ public interface cartService {
     @Transactional
     cartRequest updateProductQuantityInCart(Long productId, Integer delete);
 
-    cartRequest deleteProductFromCart(Long productId);
+    String  deleteProductFromCart(Long productId);
 }

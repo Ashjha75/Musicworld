@@ -179,7 +179,7 @@ public class cartServiceImpl implements cartService {
 
     @Transactional
     @Override
-    public cartRequest deleteProductFromCart(Long productId) {
+    public String deleteProductFromCart(Long productId) {
 
         String email = authutils.loggedInEmail();
         cartEntity cart = cartRepo.findCartByEmail(email);
@@ -187,7 +187,6 @@ public class cartServiceImpl implements cartService {
 
         cartEntity cartEntity = cartRepo.findById(cartId).orElseThrow(() -> new ResourceNotFound(cartId, "ID", "Cart"));
 
-        productEntity product = productRepository.findById(productId).orElseThrow(() -> new ResourceNotFound(productId, "ID", "Product"));
 
         cartItemsEntity cartItem = cartItemsRepository.findCartItemByProductIDAndCartId(cartId, productId);
 
@@ -195,20 +194,14 @@ public class cartServiceImpl implements cartService {
             throw new ApiException("Product " + product.getProductName() + " does not exist in cart");
         }
 
-        cartEntity.setTotalPrice(cartEntity.getTotalPrice() - (product.getSpecialPrice() * cartItem.getQuantity()));
-        cartItemsRepository.delete(cartItem);
+        cartEntity.setTotalPrice(cartEntity.getTotalPrice() - (cartItem.getProductPrice() * cartItem.getQuantity()));
 
-        cartRequest cartRequest = modelMapper.map(cartEntity, cartRequest.class);
-        List<cartItemsEntity> cartItemsList = cartEntity.getCartItems();
+        productEntity product = cartItem.getProduct();
+        product.setQuantity(product.getQuantity() + cartItem.getQuantity());
 
-        Stream<productRequest> productRequestStream = cartItemsList.stream().map(cartItemsEntity -> {
-            productRequest productRequest = modelMapper.map(cartItemsEntity.getProduct(), productRequest.class);
-            productRequest.setQuantity(cartItemsEntity.getQuantity());
-            return productRequest;
-        });
+        cartItemRepo.deleteCartItemByProductIDAndCartId(cartId, productId);
 
-        cartRequest.setCartItems(productRequestStream.toList());
-        return cartRequest;
+        return  "Product " + cartItem.getProduct().getProductName() + " deleted from cart";
 
     }
 
