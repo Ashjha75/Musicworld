@@ -44,8 +44,7 @@ public class cartServiceImpl implements cartService {
         cartItemsEntity cartItem = cartItemsRepository.findCartItemByProductIDAndCartId(cart.getCartId(), productId);
 
         if (cartItem != null) {
-            updateProductQuantityInCart(productId, quantity);
-//            throw new ApiException("Product " + product.getProductName() + " already exists in cart");
+            throw new ApiException("Product " + product.getProductName() + " already exists in cart");
         }
         if (product.getQuantity() == 0) {
             throw new ApiException("Product " + product.getProductName() + " is out of stock");
