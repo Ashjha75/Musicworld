@@ -207,5 +207,22 @@ public class cartServiceImpl implements cartService {
 
     }
 
+    @Override
+    public void updateProductInCart(Long cartId, Long productId){
+        cartEntity cart = cartRepo.findById(cartId).orElseThrow(() -> new ResourceNotFound(cartId, "ID", "Cart"));
+        productEntity product = productRepository.findById(productId).orElseThrow(() -> new ResourceNotFound(productId, "ID", "Product"));
+
+        cartItemsEntity cartItem = cartItemsRepository.findCartItemByProductIDAndCartId(cartId, productId);
+
+        if(cartItem == null){
+            throw new ApiException("Product does not exist in cart");
+        }
+
+        double cartPrice = cart.getTotalPrice() - (cartItem.getProductPrice() * cartItem.getQuantity());
+        cartItem.setProductPrice(product.getSpecialPrice());
+        cart.setTotalPrice(cartPrice + (product.getSpecialPrice() * cartItem.getQuantity()));
+        cartItem = cartItemsRepository.save(cartItem);
+
+    }
 
 }
