@@ -1,11 +1,14 @@
 package com.example.springcommerce.serviceImplementation;
 
+import com.example.springcommerce.DTO.Request.cartRequest;
 import com.example.springcommerce.DTO.Request.productRequest;
 import com.example.springcommerce.DTO.Response.productResponse;
+import com.example.springcommerce.entity.cartEntity;
 import com.example.springcommerce.entity.categoryEntity;
 import com.example.springcommerce.entity.productEntity;
 import com.example.springcommerce.exception.ApiException;
 import com.example.springcommerce.exception.ResourceNotFound;
+import com.example.springcommerce.repository.cartRepo;
 import com.example.springcommerce.repository.categoryRepo;
 import com.example.springcommerce.repository.productRepo;
 import com.example.springcommerce.service.fileService;
@@ -19,6 +22,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import com.example.springcommerce.service.cartService;
 
 import java.io.IOException;
 import java.util.List;
@@ -30,16 +34,20 @@ public class productImpl implements productService {
     private final categoryRepo categoryRepository;
     private final ModelMapper modelMapper;
     private final fileService fileService;
+    private final cartRepo cartRepo;
+    private final cartService cartService;
 
     @Value("${project.image}")
     private String path;
 
     @Autowired
-    public productImpl(productRepo productRepository, categoryRepo categoryRepository, ModelMapper modelMapper, fileService fileService) {
+    public productImpl(productRepo productRepository, categoryRepo categoryRepository, ModelMapper modelMapper, fileService fileService, cartRepo cartRepo, cartService cartService) {
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
         this.modelMapper = modelMapper;
         this.fileService = fileService;
+        this.cartRepo = cartRepo;
+        this.cartService = cartService;
     }
 
     @Override
@@ -152,6 +160,18 @@ public class productImpl implements productService {
         existingProduct.setSpecialPrice(specialPrice);
 //        save the product
         productEntity savedProduct = productRepository.save(existingProduct);
+
+//        Update the cart after updating the product
+        List<cartEntity> carts = cartRepo.findCartsByProductId(productId);
+        List<cartRequest> cartRequests = carts.stream().map(cart ->{
+            cartRequest cartRequest = modelMapper.map(cart, cartRequest.class);
+
+            List<productRequest> products = cart.getCartItems().stream().map(p-> modelMapper.map(p.getProduct(), productRequest.class)).toList();
+            cartRequest.setCartItems(products);
+            return cartRequest;
+        }).toList();
+
+        cartRequests.forEach((cart->cartService.updateProductInCart(cart.getCartId(), productId)));
 
 //        return the updated product
         return modelMapper.map(savedProduct, productRequest.class);
