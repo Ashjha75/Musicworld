@@ -18,7 +18,7 @@ public class addressServiceImpl implements addressService {
     private final ModelMapper modelMapper;
 
     @Autowired
-    addressServiceImpl(addressRepo addressRepository, ModelMapper modelMapper) {
+    public  addressServiceImpl(addressRepo addressRepository, ModelMapper modelMapper) {
         this.addressRepository = addressRepository;
         this.modelMapper = modelMapper;
     }
