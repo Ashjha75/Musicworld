@@ -8,11 +8,10 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.example.springcommerce.service.addressService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/address")
@@ -32,5 +31,11 @@ public class AddressController {
         userEntity user =authUtil.loggedInUser();
         addressRequest address = addressService.createAddress(addressRequest, user);
         return  new ResponseEntity<>(address, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/get-all-address")
+    public ResponseEntity<List<addressRequest>> getAllAddress() {
+        List<addressRequest> address = addressService.getAllAddress();
+        return new ResponseEntity<>(address, HttpStatus.OK);
     }
 }
