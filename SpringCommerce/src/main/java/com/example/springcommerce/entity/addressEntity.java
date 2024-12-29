@@ -3,13 +3,16 @@ package com.example.springcommerce.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
+@Table(name = "address")
+@Getter
+@Setter
+@Data
+@NoArgsConstructor
 public class addressEntity {
 
     @Id
@@ -40,8 +43,7 @@ public class addressEntity {
     @Size(min = 6, message = "Pin code must contains atleast 3 Characters")
     private String pinCode;
 
-    @Getter
-    @Setter
+
     @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "user_id")
