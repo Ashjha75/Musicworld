@@ -42,4 +42,10 @@ public class addressServiceImpl implements addressService {
         List<addressEntity> addressList = addressRepository.findAll();
         return addressList.stream().map(address -> modelMapper.map(address, addressRequest.class)).toList();
     }
+
+    @Override
+    public addressRequest getAddressById(Long id) {
+        addressEntity address = addressRepository.findById(id).orElseThrow(() -> new RuntimeException("Address not found"));
+        return modelMapper.map(address, addressRequest.class);
+    }
 }

@@ -10,4 +10,6 @@ public interface addressService {
     addressRequest createAddress(addressRequest addressRequest, userEntity user);
 
     List<addressRequest> getAllAddress();
+
+    addressRequest getAddressById(Long id);
 }
