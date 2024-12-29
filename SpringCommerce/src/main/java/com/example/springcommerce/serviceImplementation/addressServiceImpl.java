@@ -48,4 +48,12 @@ public class addressServiceImpl implements addressService {
         addressEntity address = addressRepository.findById(id).orElseThrow(() -> new RuntimeException("Address not found"));
         return modelMapper.map(address, addressRequest.class);
     }
+
+    @Override
+    public List<addressRequest> getUserAddresses(String email) {
+        List<addressEntity> addressList = addressRepository.findByUserEmail(email);
+        return addressList.stream().map(address -> modelMapper.map(address, addressRequest.class)).toList();
+    }
+
+
 }
