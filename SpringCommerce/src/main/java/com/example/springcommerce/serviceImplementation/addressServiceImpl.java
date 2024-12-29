@@ -50,8 +50,8 @@ public class addressServiceImpl implements addressService {
     }
 
     @Override
-    public List<addressRequest> getUserAddresses(String email) {
-        List<addressEntity> addressList = addressRepository.findByUserEmail(email);
+    public List<addressRequest> getUserAddresses(userEntity user) {
+        List<addressEntity> addressList = user.getAddress();
         return addressList.stream().map(address -> modelMapper.map(address, addressRequest.class)).toList();
     }
 
