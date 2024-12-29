@@ -44,4 +44,12 @@ public class AddressController {
         addressRequest address = addressService.getAddressById(id);
         return new ResponseEntity<>(address, HttpStatus.OK);
     }
+
+    @GetMapping("/get-user-addresses")
+    public ResponseEntity<List<addressRequest>> getUserAddresses() {
+        userEntity user = authUtil.loggedInUser();
+        List<addressRequest> address = addressService.getUserAddresses(user.getEmail());
+        return new ResponseEntity<>(address, HttpStatus.OK);
+    }
+
 }
