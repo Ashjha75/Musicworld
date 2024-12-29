@@ -82,5 +82,14 @@ public class addressServiceImpl implements addressService {
         return modelMapper.map(updatedAddress, addressRequest.class);
     }
 
+    @Override
+    public void deleteAddress(Long id) {
+        addressEntity address = addressRepository.findById(id).orElseThrow(() -> new RuntimeException("Address not found"));
+        userEntity user = address.getUser();
+        user.getAddress().removeIf(address1 -> address1.getAddressId().equals(id));
+        userRepository.save(user);
+        addressRepository.deleteById(id);
+    }
+
 
 }
