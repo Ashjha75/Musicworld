@@ -57,5 +57,5 @@ public class AddressController {
         userEntity user = authUtil.loggedInUser();
         addressRequest address = addressService.updateAddress(id, addressRequest, user);
         return new ResponseEntity<addressRequest>(address, HttpStatus.OK);
-
+    }
 }

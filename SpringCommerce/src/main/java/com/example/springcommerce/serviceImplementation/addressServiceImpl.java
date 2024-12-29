@@ -55,5 +55,21 @@ public class addressServiceImpl implements addressService {
         return addressList.stream().map(address -> modelMapper.map(address, addressRequest.class)).toList();
     }
 
+    @Override
+    public addressRequest updateAddress(Long id, addressRequest addressRequest, userEntity user) {
+        addressEntity addressEntity = modelMapper.map(addressRequest, addressEntity.class);
+
+        addressEntity savedAddress = addressRepository.findById(id).orElseThrow(() -> new RuntimeException("Address not found"));
+        savedAddress.setCity(addressEntity.getCity());
+        savedAddress.setCountry(addressEntity.getCountry());
+        savedAddress.setState(addressEntity.getState());
+        savedAddress.setStreet(addressEntity.getStreet());
+        savedAddress.setPinCode(addressEntity.getPinCode());
+        savedAddress.setBuildingName(addressEntity.getBuildingName());
+
+        addressEntity updatedAddress = addressRepository.save(savedAddress);
+        return modelMapper.map(updatedAddress, addressRequest.class);
+    }
+
 
 }
