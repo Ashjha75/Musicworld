@@ -16,5 +16,5 @@ public interface addressService {
 
     addressRequest getAddressById(Long id);
 
-    List<addressRequest> getUserAddresses(@NotBlank @Size(min = 6, max = 100) @Email(message = "must be a well-formed email address") String email);
+    List<addressRequest> getUserAddresses(userEntity user);
 }
