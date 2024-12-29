@@ -38,4 +38,10 @@ public class AddressController {
         List<addressRequest> address = addressService.getAllAddress();
         return new ResponseEntity<>(address, HttpStatus.OK);
     }
+
+    @GetMapping("/get-address/{id}")
+    public ResponseEntity<addressRequest> getAddressById(@PathVariable Long id) {
+        addressRequest address = addressService.getAddressById(id);
+        return new ResponseEntity<>(address, HttpStatus.OK);
+    }
 }
