@@ -1,11 +1,10 @@
 package com.example.springcommerce.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import java.util.List;
@@ -41,9 +40,12 @@ public class addressEntity {
     @Size(min = 6, message = "Pin code must contains atleast 3 Characters")
     private String pinCode;
 
+    @Getter
+    @Setter
     @ToString.Exclude
-    @ManyToMany(mappedBy = "address")
-    private List<userEntity> user;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private userEntity user;
 
     public addressEntity(String pinCode, String country, String state, String city, String buildingName, String street) {
         this.pinCode = pinCode;
@@ -53,4 +55,5 @@ public class addressEntity {
         this.buildingName = buildingName;
         this.street = street;
     }
+
 }
