@@ -19,5 +19,5 @@ public interface addressService {
 
     List<addressRequest> getUserAddresses(userEntity user);
 
-    addressRequest updateAddress(Long id, @Valid addressRequest addressRequest, userEntity user);
+    addressRequest updateAddress(Long id, @Valid addressRequest addressRequest);
 }

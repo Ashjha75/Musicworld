@@ -54,8 +54,7 @@ public class AddressController {
 
     @PutMapping("/update-address/{id}")
     public ResponseEntity<addressRequest> updateAddress(@PathVariable Long id, @Valid @RequestBody addressRequest addressRequest) {
-        userEntity user = authUtil.loggedInUser();
-        addressRequest address = addressService.updateAddress(id, addressRequest, user);
+        addressRequest address = addressService.updateAddress(id, addressRequest);
         return new ResponseEntity<addressRequest>(address, HttpStatus.OK);
     }
 }
