@@ -4,23 +4,32 @@ import com.example.springcommerce.DTO.Request.orderBodyRequest;
 import com.example.springcommerce.DTO.Request.orderRequest;
 import com.example.springcommerce.entity.addressEntity;
 import com.example.springcommerce.entity.cartEntity;
+import com.example.springcommerce.entity.orderEntity;
 import com.example.springcommerce.exception.ResourceNotFound;
 import com.example.springcommerce.repository.addressRepo;
 import com.example.springcommerce.repository.cartRepo;
+import com.example.springcommerce.repository.orderItemRepo;
+import com.example.springcommerce.repository.orderRepo;
 import com.example.springcommerce.service.orderService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
-public class orderServiceImpl implements orderService{
+public class orderServiceImpl implements orderService {
     private final cartRepo cartRepository;
     private final addressRepo addressRepository;
+    private final orderItemRepo orderItemRepository;
+    private final orderRepo orderRepository;
 
     @Autowired
-    public orderServiceImpl(cartRepo cartRepository, addressRepo addressRepository) {
+    public orderServiceImpl(cartRepo cartRepository, addressRepo addressRepository, orderItemRepo orderItemRepository, orderRepo orderRepository) {
         this.cartRepository = cartRepository;
         this.addressRepository = addressRepository;
+        this.orderItemRepository = orderItemRepository;
+        this.orderRepository = orderRepository;
     }
 
 
@@ -29,11 +38,19 @@ public class orderServiceImpl implements orderService{
     public orderRequest placeOrder(String emailId, String paymentMethod, orderBodyRequest orderRequestBody) {
 
         cartEntity cart = cartRepository.findCartByEmail(emailId);
-        if(cart == null){
-            throw new ResourceNotFound("Cart","email",emailId);
+        if (cart == null) {
+            throw new ResourceNotFound("Cart", "email", emailId);
         }
 
-        addressEntity address = addressRepository.findById(orderRequestBody.getAddressId()).orElseThrow(() -> new ResourceNotFound("Address","id",orderRequestBody.getAddressId()));
+        addressEntity address = addressRepository.findById(orderRequestBody.getAddressId()).orElseThrow(() -> new ResourceNotFound("Address", "id", orderRequestBody.getAddressId()));
+
+        orderEntity order = new orderEntity();
+        order.setEmail(emailId);
+        order.setOrderDate(LocalDate.now());
+        order.setTotalAmount(cart.getTotalPrice());
+        order.setOrderStatus("Order Accepted");
+
+
 
         return null;
     }
