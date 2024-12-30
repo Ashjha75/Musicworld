@@ -1,5 +1,6 @@
 package com.example.springcommerce.controller;
 
+import com.example.springcommerce.DTO.Request.orderBodyRequest;
 import com.example.springcommerce.DTO.Request.orderRequest;
 import com.example.springcommerce.service.orderService;
 import com.example.springcommerce.utils.utilityGroup.AuthUtil;
@@ -23,7 +24,7 @@ public class OrderController {
     }
 
     @PostMapping("/users/payments/{paymentMethod}")
-    public ResponseEntity<orderRequest> orderProducts(@PathVariable String paymentMethod, @RequestBody orderRequest orderRequestBody) {
+    public ResponseEntity<orderRequest> orderProducts(@PathVariable String paymentMethod, @RequestBody orderBodyRequest orderRequestBody) {
         String emailId = authUtil.loggedInEmail();
         orderRequest order = orderService.placeOrder(
                 emailId,
