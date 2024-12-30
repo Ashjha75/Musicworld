@@ -26,15 +26,7 @@ public class OrderController {
     @PostMapping("/users/payments/{paymentMethod}")
     public ResponseEntity<orderRequest> orderProducts(@PathVariable String paymentMethod, @RequestBody orderBodyRequest orderRequestBody) {
         String emailId = authUtil.loggedInEmail();
-        orderRequest order = orderService.placeOrder(
-                emailId,
-                orderRequestBody.getAddressId(),
-                paymentMethod,
-                orderRequestBody.getPaymentGatewayName(),
-                orderRequestBody.getPaymentGatewayPaymentId(),
-                orderRequestBody.getPaymentGatewayPaymentStatus(),
-                orderRequestBody.getPaymentGatewayResponseMessage(),
-                );
+        orderRequest order = orderService.placeOrder(emailId, paymentMethod, orderRequestBody);
         return new ResponseEntity<>(order, HttpStatus.CREATED);
     }
 }
