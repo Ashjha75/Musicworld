@@ -26,7 +26,7 @@ public class orderEntity {
     @Column(nullable = false)
     private String email;
 
-    @OneToMany(mappedBy = "order" , cascade ={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH} ,orphanRemoval = true)
+    @OneToMany(mappedBy = "order" , cascade ={CascadeType.PERSIST, CascadeType.MERGE} ,orphanRemoval = true)
     private List<orderItemEntity> orderItems =new ArrayList<>();
 
     private LocalDate orderDate;
