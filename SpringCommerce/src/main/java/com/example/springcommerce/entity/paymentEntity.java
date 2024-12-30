@@ -28,12 +28,15 @@ public class paymentEntity {
     private String paymentGatewayPaymentStatus;
     private String paymentGatewayPaymentId;
     private String paymentGatewayResponseMessage;
+    private String paymentGatewayName;
 
-    public paymentEntity(String paymentMethod, String paymentGatewayPaymentStatus, String paymentGatewayPaymentId, String paymentGatewayResponseMessage) {
+    public paymentEntity(String paymentMethod, String paymentGatewayPaymentStatus, String paymentGatewayPaymentId, String paymentGatewayResponseMessage, String paymentGatewayName, Long paymentId) {
+        this.paymentId = paymentId;
         this.paymentMethod = paymentMethod;
         this.paymentGatewayPaymentStatus = paymentGatewayPaymentStatus;
         this.paymentGatewayPaymentId = paymentGatewayPaymentId;
         this.paymentGatewayResponseMessage = paymentGatewayResponseMessage;
+        this.paymentGatewayName = paymentGatewayName;
     }
 
 }
