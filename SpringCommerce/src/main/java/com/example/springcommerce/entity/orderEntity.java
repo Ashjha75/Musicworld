@@ -31,9 +31,9 @@ public class orderEntity {
 
     private LocalDate orderDate;
 
-//    @OneToOne
-//    @JoinColumn(name = "payment_id")
-//    private paymentEntity payment;
+    @OneToOne
+    @JoinColumn(name = "payment_id")
+    private paymentEntity payment;
 
     private Double totalAmount;
     private String orderStatus;
