@@ -1,292 +1,708 @@
 {
-  "info": {
-    "_postman_id": "d1222efa-1a7e-485f-a990-b5f23118ab54",
-    "name": "Spring commerce",
-    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
-    "_exporter_id": "28289808"
-  },
-  "item": [
-    {
-      "name": "Category",
-      "item": [
-        {
-          "name": "Get All Categories",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTcyOTk2MDM2MCwiZXhwIjoxNzMwODI0MzYwfQ.dZardrVVR9IRY6AF7IpJHupY_e-ySwVa1haw-LJFFjIHWviAIUOoiHQQTPpITZQe1fk5Dt1YvfRd7wjNyXpi8g",
-                "type": "text",
-                "disabled": true
-              },
-              {
-                "key": "pageNumber",
-                "value": "3",
-                "type": "text",
-                "disabled": true
-              }
-            ],
-            "url": {
-              "raw": "{{Base_URL}}/api/categories?page=5",
-              "host": [
-                "{{Base_URL}}"
-              ],
-              "path": [
-                "api",
-                "categories"
-              ],
-              "query": [
-                {
-                  "key": "page",
-                  "value": "5"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Create Category",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTcyOTk2MTEyMSwiZXhwIjoxNzMwODI1MTIxfQ.3LSRf3qW2L47uOc_7LWcX2tKvqkZ0KX3ft4OSQABckWeI0d9dRDR2Gu8tKQR30v3DP9fd4GrcB0Rq9yRQbr-2g",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"categoryName\": \"Thand rakh\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": "{{Base_URL}}/api/categories"
-          },
-          "response": []
-        },
-        {
-          "name": "Edit Category{id}",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": {
-                "token": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTcyOTk2MDM2MCwiZXhwIjoxNzMwODI0MzYwfQ.dZardrVVR9IRY6AF7IpJHupY_e-ySwVa1haw-LJFFjIHWviAIUOoiHQQTPpITZQe1fk5Dt1YvfRd7wjNyXpi8g"
-              }
-            },
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTcyOTk2MTEyMSwiZXhwIjoxNzMwODI1MTIxfQ.3LSRf3qW2L47uOc_7LWcX2tKvqkZ0KX3ft4OSQABckWeI0d9dRDR2Gu8tKQR30v3DP9fd4GrcB0Rq9yRQbr-2g",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"categoryName\": \"Main Category11 \"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": "{{Base_URL}}/api/categories/2"
-          },
-          "response": []
-        },
-        {
-          "name": "Delete{id}",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": "{{Base_URL}}/api/v1/categories/101"
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Product",
-      "item": [
-        {
-          "name": "Add Product",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTcyOTk2MDM2MCwiZXhwIjoxNzMwODI0MzYwfQ.dZardrVVR9IRY6AF7IpJHupY_e-ySwVa1haw-LJFFjIHWviAIUOoiHQQTPpITZQe1fk5Dt1YvfRd7wjNyXpi8g",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n\r\n    \"productName\": \"Realme Phone\",\r\n    \"image\": \"sampleImage.jpg\",\r\n    \"description\": \"This is a sample product description.\",\r\n    \"quantity\": 10,\r\n    \"price\": 99.99,\r\n    \"discount\": 10.0\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": "{{Base_URL}}/api/v1/admin/categories/6/product"
-          },
-          "response": []
-        },
-        {
-          "name": "Update Product",
-          "request": {
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n\r\n    \"productName\": \"King MRF Bat\",\r\n    \"image\": \"sampleImage.jpg\",\r\n    \"description\": \"This is a sample product description.\",\r\n    \"quantity\": 10,\r\n    \"price\": 99.99,\r\n    \"discount\": 10.0\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": "{{Base_URL}}/api/v1/admin/products/productId/2"
-          },
-          "response": []
-        },
-        {
-          "name": "Get All Products",
-          "request": {
-            "auth": {
-              "type": "noauth"
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTcyOTk2MTEyMSwiZXhwIjoxNzMwODI1MTIxfQ.3LSRf3qW2L47uOc_7LWcX2tKvqkZ0KX3ft4OSQABckWeI0d9dRDR2Gu8tKQR30v3DP9fd4GrcB0Rq9yRQbr-2g",
-                "type": "text"
-              }
-            ],
-            "url": "{{Base_URL}}/api/public/products"
-          },
-          "response": []
-        },
-        {
-          "name": "Get Products By Category",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": "{{Base_URL}}/api/v1/public/categories/2/products"
-          },
-          "response": []
-        },
-        {
-          "name": "Get Product BY Keyword",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": "{{Base_URL}}/api/v1/public/products/keyWord/zu"
-          },
-          "response": []
-        },
-        {
-          "name": "Delete Product",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": "{{Base_URL}}/api/v1/admin/products/productId/2"
-          },
-          "response": []
-        },
-        {
-          "name": "Add Product Image",
-          "request": {
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "image",
-                  "type": "file",
-                  "src": "/C:/Users/ashis/OneDrive/Pictures/Wallpaper/blue.jpg"
-                }
-              ]
-            },
-            "url": "{{Base_URL}}/api/v1/products/3/image"
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Auth",
-      "item": [
-        {
-          "name": "Signin",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"username\": \"TEst user123\",\r\n    \"password\": \"password1\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": "{{Base_URL}}/api/auth/signin"
-          },
-          "response": []
-        },
-        {
-          "name": "Signup",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"username\": \"TEst user123\",\r\n    \"password\": \"password1\",\r\n    \"email\": \"ashis23h@gmail.com\",\r\n    \"role\": [\"admi111111\"]\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": "{{Base_URL}}/api/auth/signup"
-          },
-          "response": []
-        },
-        {
-          "name": "currentUserName",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTcyOTk2MDM2MCwiZXhwIjoxNzMwODI0MzYwfQ.dZardrVVR9IRY6AF7IpJHupY_e-ySwVa1haw-LJFFjIHWviAIUOoiHQQTPpITZQe1fk5Dt1YvfRd7wjNyXpi8g",
-                "type": "text",
-                "disabled": true
-              }
-            ],
-            "url": "{{Base_URL}}/api/auth/user"
-          },
-          "response": []
-        },
-        {
-          "name": "Signout",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "url": "{{Base_URL}}/api/auth/signout"
-          },
-          "response": []
-        }
-      ]
-    }
-  ]
+	"info": {
+		"_postman_id": "90e13acb-381d-4050-ab6e-f403fb8c7f08",
+		"name": "Spring commerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26940984"
+	},
+	"item": [
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "Get All Categories",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTcyOTk2MDM2MCwiZXhwIjoxNzMwODI0MzYwfQ.dZardrVVR9IRY6AF7IpJHupY_e-ySwVa1haw-LJFFjIHWviAIUOoiHQQTPpITZQe1fk5Dt1YvfRd7wjNyXpi8g",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "pageNumber",
+								"value": "3",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{Base_URL}}/api/categories",
+							"host": [
+								"{{Base_URL}}"
+							],
+							"path": [
+								"api",
+								"categories"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "pageSize",
+									"value": "3",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJURXN0IHVzZXIxMjMiLCJpYXQiOjE3MzQ2ODkwMjIsImV4cCI6MTczNTU1MzAyMn0.i_1JlXpzO2ubUZ2r-zJMoxk4nUlkDSirIQ6VL2xL8D4X7zrG9JvCDHsplzEzat7D9YLhN-nHi2RKLr3sflo83g",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"categoryName\": \"Daily Goods\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Base_URL}}/api/categories",
+							"host": [
+								"{{Base_URL}}"
+							],
+							"path": [
+								"api",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Category{id}",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJURXN0IHVzZXIxMjMiLCJpYXQiOjE3MzQ3OTI2MTYsImV4cCI6MTczNTY1NjYxNn0.aikjkmWwME6G5xH9LYPbDgNq6KHA55TLVfVfZQtbzWtbzXYO3V1JYTy_oM2zH8Hq7g4xnXqYvgMgK1MvDDqDRQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"categoryName\": \"Main Category11 \"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Base_URL}}/api/categories/54",
+							"host": [
+								"{{Base_URL}}"
+							],
+							"path": [
+								"api",
+								"categories",
+								"54"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete{id}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{Base_URL}}/api/categories/53",
+							"host": [
+								"{{Base_URL}}"
+							],
+							"path": [
+								"api",
+								"categories",
+								"53"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Add Product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJURXN0IHVzZXIxMjMiLCJpYXQiOjE3MzQ2ODkwMjIsImV4cCI6MTczNTU1MzAyMn0.i_1JlXpzO2ubUZ2r-zJMoxk4nUlkDSirIQ6VL2xL8D4X7zrG9JvCDHsplzEzat7D9YLhN-nHi2RKLr3sflo83g",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productName\": \"Good Day Biscuits\",\r\n    \"image\": \"sampleImage.jpg\",\r\n    \"description\": \"This is a sample product description.\",\r\n    \"quantity\": 10,\r\n    \"price\": 9.99,\r\n    \"discount\": 1.0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Base_URL}}/api/admin/categories/10/product",
+							"host": [
+								"{{Base_URL}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"categories",
+								"10",
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n            \"productId\": 6,\r\n            \"productName\": \"oneplus Phone\",\r\n            \"image\": \"defaultImage.jpg\",\r\n            \"description\": \"This is a sample product description.\",\r\n            \"quantity\": 0,\r\n            \"price\": 99.99,\r\n            \"discount\": 10.0,\r\n            \"specialPrice\": 9.999\r\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Base_URL}}/api/admin/products/productId/6",
+							"host": [
+								"{{Base_URL}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"products",
+								"productId",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Products",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJURXN0IHVzZXIxMjMiLCJpYXQiOjE3MzQ2ODkwMjIsImV4cCI6MTczNTU1MzAyMn0.i_1JlXpzO2ubUZ2r-zJMoxk4nUlkDSirIQ6VL2xL8D4X7zrG9JvCDHsplzEzat7D9YLhN-nHi2RKLr3sflo83g",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{Base_URL}}/api/public/products",
+							"host": [
+								"{{Base_URL}}"
+							],
+							"path": [
+								"api",
+								"public",
+								"products"
+							],
+							"query": [
+								{
+									"key": "Authorization",
+									"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJURXN0IHVzZXIxMjMiLCJpYXQiOjE3MzQ2ODkwMjIsImV4cCI6MTczNTU1MzAyMn0.i_1JlXpzO2ubUZ2r-zJMoxk4nUlkDSirIQ6VL2xL8D4X7zrG9JvCDHsplzEzat7D9YLhN-nHi2RKLr3sflo83g",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Products By Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Base_URL}}/api/public/categories/2/products",
+							"host": [
+								"{{Base_URL}}"
+							],
+							"path": [
+								"api",
+								"public",
+								"categories",
+								"2",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product BY Keyword",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Base_URL}}/api/public/products/keyWord/bat",
+							"host": [
+								"{{Base_URL}}"
+							],
+							"path": [
+								"api",
+								"public",
+								"products",
+								"keyWord",
+								"bat"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{Base_URL}}/api/admin/products/productId/3",
+							"host": [
+								"{{Base_URL}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"products",
+								"productId",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Product Image",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/ashis/OneDrive/Pictures/Screenshots 1/Screenshot 2024-12-20 235149.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{Base_URL}}/api/products/5/image",
+							"host": [
+								"{{Base_URL}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"5",
+								"image"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Signin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"ashish.admin\",\r\n    \"password\": \"Staging123$\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Base_URL}}/api/auth/signin",
+							"host": [
+								"{{Base_URL}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"ashish.admin\",\r\n    \"password\": \"Staging123$\",\r\n    \"email\": \"ashish.admin@gmail.com\",\r\n    \"role\": [\"admin\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Base_URL}}/api/auth/signup",
+							"host": [
+								"{{Base_URL}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "currentUserName",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTcyOTk2MDM2MCwiZXhwIjoxNzMwODI0MzYwfQ.dZardrVVR9IRY6AF7IpJHupY_e-ySwVa1haw-LJFFjIHWviAIUOoiHQQTPpITZQe1fk5Dt1YvfRd7wjNyXpi8g",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{Base_URL}}/api/auth/user",
+							"host": [
+								"{{Base_URL}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Signout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{Base_URL}}/api/auth/signout",
+							"host": [
+								"{{Base_URL}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"signout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cart",
+			"item": [
+				{
+					"name": "Add to cart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{Base_URL}}/api/cart/product/1/quantity/2",
+							"host": [
+								"{{Base_URL}}"
+							],
+							"path": [
+								"api",
+								"cart",
+								"product",
+								"1",
+								"quantity",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Cart",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Base_URL}}/api/cart/get-all-carts",
+							"host": [
+								"{{Base_URL}}"
+							],
+							"path": [
+								"api",
+								"cart",
+								"get-all-carts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cart By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Base_URL}}/api/cart/get-cart",
+							"host": [
+								"{{Base_URL}}"
+							],
+							"path": [
+								"api",
+								"cart",
+								"get-cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Cart Item Quantity",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{Base_URL}}/api/cart/product/2/quantity/delete",
+							"host": [
+								"{{Base_URL}}"
+							],
+							"path": [
+								"api",
+								"cart",
+								"product",
+								"2",
+								"quantity",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product From Cart",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{Base_URL}}/api/cart/product/5",
+							"host": [
+								"{{Base_URL}}"
+							],
+							"path": [
+								"api",
+								"cart",
+								"product",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Addresses",
+			"item": [
+				{
+					"name": "Create Address",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"street\": \"456 Oak Avenue\",\r\n  \"buildingName\": \"Sunshine Apartments\",\r\n  \"city\": \"Metropolis\",\r\n  \"state\": \"New York\",\r\n  \"country\": \"USA\",\r\n  \"pinCode\": \"100011\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Base_URL}}/api/v1/address/create-address",
+							"host": [
+								"{{Base_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"address",
+								"create-address"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get-All-Address",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Base_URL}}/api/v1/address/get-all-address",
+							"host": [
+								"{{Base_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"address",
+								"get-all-address"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get-Address-By-Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Base_URL}}/api/v1/address/get-address/1",
+							"host": [
+								"{{Base_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"address",
+								"get-address",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get-Logged-in-User-Address",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Base_URL}}/api/v1/address/get-user-addresses",
+							"host": [
+								"{{Base_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"address",
+								"get-user-addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update-Address-by-id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"street\": \"456 Oak Avenue\",\r\n  \"buildingName\": \"Sunshine Apartments\",\r\n  \"city\": \"Metropolis2\",\r\n  \"state\": \"New York\",\r\n  \"country\": \"USA\",\r\n  \"pinCode\": \"100011\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Base_URL}}/api/v1/address/update-address/1",
+							"host": [
+								"{{Base_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"address",
+								"update-address",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delet-address-by-id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{Base_URL}}/api/v1/address/delete-address/2",
+							"host": [
+								"{{Base_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"address",
+								"delete-address",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
 }
