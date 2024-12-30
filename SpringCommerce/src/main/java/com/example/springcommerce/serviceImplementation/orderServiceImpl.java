@@ -5,11 +5,9 @@ import com.example.springcommerce.DTO.Request.orderRequest;
 import com.example.springcommerce.entity.addressEntity;
 import com.example.springcommerce.entity.cartEntity;
 import com.example.springcommerce.entity.orderEntity;
+import com.example.springcommerce.entity.paymentEntity;
 import com.example.springcommerce.exception.ResourceNotFound;
-import com.example.springcommerce.repository.addressRepo;
-import com.example.springcommerce.repository.cartRepo;
-import com.example.springcommerce.repository.orderItemRepo;
-import com.example.springcommerce.repository.orderRepo;
+import com.example.springcommerce.repository.*;
 import com.example.springcommerce.service.orderService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +21,7 @@ public class orderServiceImpl implements orderService {
     private final addressRepo addressRepository;
     private final orderItemRepo orderItemRepository;
     private final orderRepo orderRepository;
+    private final paymentRepo paymentRepository;
 
     @Autowired
     public orderServiceImpl(cartRepo cartRepository, addressRepo addressRepository, orderItemRepo orderItemRepository, orderRepo orderRepository) {
@@ -49,7 +48,9 @@ public class orderServiceImpl implements orderService {
         order.setOrderDate(LocalDate.now());
         order.setTotalAmount(cart.getTotalPrice());
         order.setOrderStatus("Order Accepted");
+        order.setAddress(address);
 
+        paymentEntity payment = new paymentEntity(paymentMethod, orderRequestBody.getPaymentGatewayPaymentId(),orderRequestBody.getPaymentGatewayPaymentStatus(),orderRequestBody.getPaymentGatewayResponseMessage(),
 
 
         return null;
