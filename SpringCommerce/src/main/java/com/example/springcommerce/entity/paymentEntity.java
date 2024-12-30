@@ -25,4 +25,15 @@ public class paymentEntity {
     @Size(min=4,message = "Payment method must be at least 4 characters")
     private String paymentMethod;
 
+    private String paymentGatewayPaymentStatus;
+    private String paymentGatewayPaymentId;
+    private String paymentGatewayResponseMessage;
+
+    public paymentEntity(String paymentMethod, String paymentGatewayPaymentStatus, String paymentGatewayPaymentId, String paymentGatewayResponseMessage) {
+        this.paymentMethod = paymentMethod;
+        this.paymentGatewayPaymentStatus = paymentGatewayPaymentStatus;
+        this.paymentGatewayPaymentId = paymentGatewayPaymentId;
+        this.paymentGatewayResponseMessage = paymentGatewayResponseMessage;
+    }
+
 }
