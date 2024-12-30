@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -25,8 +26,8 @@ public class orderEntity {
     @Column(nullable = false)
     private String email;
 
-//    @OneToMany(mappedBy = "order" , cascade ={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH} ,orphanRemoval = true)
-//    private List<orderItemEntity> orderItems =new ArrayList<>();
+    @OneToMany(mappedBy = "order" , cascade ={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH} ,orphanRemoval = true)
+    private List<orderItemEntity> orderItems =new ArrayList<>();
 
     private LocalDate orderDate;
 
