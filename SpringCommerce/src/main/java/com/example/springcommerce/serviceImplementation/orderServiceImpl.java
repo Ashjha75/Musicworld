@@ -49,7 +49,7 @@ public class orderServiceImpl implements orderService {
             throw new ResourceNotFound("Cart", "email", emailId);
         }
 
-        addressEntity address = addressRepository.findById(orderRequestBody.getAddressId()).orElseThrow(() -> new ResourceNotFound("Address", "id", orderRequestBody.getAddressId()));
+        addressEntity address = addressRepository.findById(orderRequestBody.getAddressId()).orElseThrow(() -> new ResourceNotFound( orderRequestBody.getAddressId(),"Address", "id"));
 
         orderEntity order = new orderEntity();
         order.setEmail(emailId);
@@ -90,11 +90,11 @@ public class orderServiceImpl implements orderService {
             product.setQuantity(product.getQuantity() - quantity);
 
 //            Remove the product from the cart
-            cartService.deleteProductFromCart(cart.getCartId(), item.getProduct());
+            cartService.deleteProductFromCart(item.getProduct().getProductId());
         });
 
-        orderRequest orderDto modelMapper.map(savedOrder, orderRequest.class);
-        orderItems.forEach(orderItem -> orderDto.getOrderItems().add(modelMapper.map(orderItem, orderItemRequest.class));
+        orderRequest orderDto= modelMapper.map(savedOrder, orderRequest.class);
+        orderItems.forEach(orderItem -> orderDto.getOrderItems().add(modelMapper.map(orderItem, orderItemRequest.class)));
 
         orderDto.setAddressId(address.getAddressId());
         return orderDto;
