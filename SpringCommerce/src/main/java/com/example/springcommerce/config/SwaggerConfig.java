@@ -29,7 +29,11 @@ public class SwaggerConfig {
                         new Tag().name("Authentication API").description("Endpoints for user authentication and registration"),
                         new Tag().name("Category API").description("Endpoints for category management"),
                         new Tag().name("Cart API").description("Endpoints for cart management"),
-                        new Tag().name("Product API").description("Endpoints for product management")))
+                        new Tag().name("Product API").description("Endpoints for product management"),
+                        new Tag().name("Address API").description("Endpoints for address management"),
+                        new Tag().name("Order API").description("Endpoints for order management")
+
+                ))
                 .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
                 .components(new Components().addSecuritySchemes("bearerAuth",
                         new SecurityScheme()
