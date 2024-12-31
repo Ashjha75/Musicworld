@@ -27,9 +27,10 @@ public class orderServiceImpl implements orderService {
     private final paymentRepo paymentRepository;
     private final ModelMapper modelMapper;
     private final cartService cartService;
+    private final productRepo productRepository;
 
     @Autowired
-    public orderServiceImpl(cartRepo cartRepository, addressRepo addressRepository, orderItemRepo orderItemRepository, orderRepo orderRepository, ModelMapper modelMapper, cartService cartService, paymentRepo paymentRepository) {
+    public orderServiceImpl(cartRepo cartRepository, addressRepo addressRepository, orderItemRepo orderItemRepository, orderRepo orderRepository, ModelMapper modelMapper, cartService cartService, paymentRepo paymentRepository, productRepo productRepository) {
         this.cartRepository = cartRepository;
         this.addressRepository = addressRepository;
         this.orderItemRepository = orderItemRepository;
@@ -37,6 +38,7 @@ public class orderServiceImpl implements orderService {
         this.modelMapper = modelMapper;
         this.cartService = cartService;
         this.paymentRepository = paymentRepository;
+        this.productRepository = productRepository;
     }
 
 
@@ -64,7 +66,7 @@ public class orderServiceImpl implements orderService {
         order.setPayment(payment);
 
         orderEntity savedOrder = orderRepository.save(order);
-
+// Transfer the cart items to order items
         List<cartItemsEntity> cartItems = cart.getCartItems();
         if(cartItems.isEmpty()){
             throw new ApiException("Cart is Empty");
@@ -88,6 +90,8 @@ public class orderServiceImpl implements orderService {
 
 //            Reduce the quantity of the product in the product table
             product.setQuantity(product.getQuantity() - quantity);
+
+            productRepository.save(product);
 
 //            Remove the product from the cart
             cartService.deleteProductFromCart(item.getProduct().getProductId());
