@@ -5,6 +5,7 @@ import com.example.springcommerce.entity.userEntity;
 import com.example.springcommerce.service.addressService;
 import com.example.springcommerce.serviceImplementation.addressServiceImpl;
 import com.example.springcommerce.utils.utilityGroup.AuthUtil;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/address")
+@Tag(name = "Address API", description = "Endpoints for managing address")
 public class AddressController {
 
     private final AuthUtil authUtil;

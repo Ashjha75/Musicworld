@@ -4,6 +4,7 @@ import com.example.springcommerce.DTO.Request.orderBodyRequest;
 import com.example.springcommerce.DTO.Request.orderRequest;
 import com.example.springcommerce.service.orderService;
 import com.example.springcommerce.utils.utilityGroup.AuthUtil;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/order")
+@Tag(name = "Order API", description = "Endpoints for managing orders")
 public class OrderController {
 
     private final AuthUtil authUtil;
