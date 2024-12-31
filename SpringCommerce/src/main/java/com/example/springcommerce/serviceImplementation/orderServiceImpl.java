@@ -55,10 +55,10 @@ public class orderServiceImpl implements orderService {
         order.setEmail(emailId);
         order.setOrderDate(LocalDate.now());
         order.setTotalAmount(cart.getTotalPrice());
-        order.setOrderStatus("Order Accepted");
+        order.setOrderStatus("Order Accepted !");
         order.setAddress(address);
 
-        paymentEntity payment = new paymentEntity(paymentMethod, orderRequestBody.getPaymentGatewayPaymentId(),orderRequestBody.getPaymentGatewayPaymentStatus(),orderRequestBody.getPaymentGatewayResponseMessage());
+        paymentEntity payment = new paymentEntity(paymentMethod, orderRequestBody.getPaymentGatewayPaymentId(),orderRequestBody.getPaymentGatewayPaymentStatus(),orderRequestBody.getPaymentGatewayResponseMessage(),orderRequestBody.getPaymentGatewayName());
         payment.setOrder(order);
         payment = paymentRepository.save(payment);
         order.setPayment(payment);
@@ -82,7 +82,7 @@ public class orderServiceImpl implements orderService {
         }
         orderItemRepository.saveAll(orderItems);
 
-        cartEntity.getCartItems().forEach(item -> {
+        cart.getCartItems().forEach(item -> {
             int quantity = item.getQuantity();
             productEntity product = item.getProduct();
 
