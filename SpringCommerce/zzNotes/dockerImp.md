@@ -76,3 +76,10 @@ docker run -e SPRING_DATASOURCE_URL=url \
            -e SPRING_PROFILES_ACTIVE=prod \
            -p 8000:8000 springcommerce
 ```
+
+
+# deploy on docker hub
+```bash
+$ docker tag springcommerce  ashishjha75/springcommerce:latest
+$ docker push springcommerce
+```

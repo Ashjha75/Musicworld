@@ -15,6 +15,7 @@ import java.util.List;
 @Configuration
 public class SwaggerConfig {
 
+
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
@@ -24,7 +25,7 @@ public class SwaggerConfig {
                         .description("API for Spring Commerce"))
                 .servers(List.of(
                         new Server().url("http://localhost:8000").description("Local server"),
-                        new Server().url("https://spring-commerce.herokuapp.com").description("Heroku server")))
+                        new Server().url("").description("Heroku server")))
                 .tags(List.of(
                         new Tag().name("Authentication API").description("Endpoints for user authentication and registration"),
                         new Tag().name("Category API").description("Endpoints for category management"),
