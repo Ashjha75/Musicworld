@@ -7,6 +7,7 @@ import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
 import io.swagger.v3.oas.models.tags.Tag;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,6 +15,9 @@ import java.util.List;
 
 @Configuration
 public class SwaggerConfig {
+
+    @Value("${baseUrl}")
+    String baseUrl;
 
 
     @Bean
@@ -25,7 +29,7 @@ public class SwaggerConfig {
                         .description("API for Spring Commerce"))
                 .servers(List.of(
                         new Server().url("http://localhost:8000").description("Local server"),
-                        new Server().url("").description("Heroku server")))
+                        new Server().url(baseUrl).description("DEV server")))
                 .tags(List.of(
                         new Tag().name("Authentication API").description("Endpoints for user authentication and registration"),
                         new Tag().name("Category API").description("Endpoints for category management"),
